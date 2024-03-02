@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import api from "@/lib/api";
 import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
 import VideoCard from "../home/VideoCard";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const artists = [
   { label: "Tom Cook" },
@@ -25,18 +26,34 @@ const MusicSection = () => {
   const [videos, setVideos] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(0)
+  const [query, setQuery] = useState('')
+  const sq = useSearchParams();
+  const router = useRouter()
 
-  const getMusicVideos = async (page: number, pageSize: number) => {
+
+
+  const getMusicVideos = async (page: number, pageSize: number, q?: string) => {
     setIsLoading(true)
     try {
-      const res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}`, '')
+      let res = null
+      if (query) {
+        res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}&query=${query}`, '')
+      } else if (q) {
+        res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}&query=${q}`, '')
+
+      } else {
+        res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}`, '')
+      }
       const data = await res.json();
       if (data.status) {
         setVideos((prev: any) => {
           return [...prev, ...data.videos.filter((video, index, arr) => arr.indexOf(video) === index)]
         })
         setCurrentPage(prev => prev + 1)
+        return data
       }
+
+      toast(data.message, { theme: 'dark' })
     } catch (error: any) {
       toast(error.message, { theme: 'dark' })
     } finally {
@@ -45,20 +62,38 @@ const MusicSection = () => {
 
   }
 
-  useEffect(() => {
 
-    getMusicVideos(1, 12)
+
+  useEffect(() => {
+    const run = async () => {
+      const q = sq.get('query')
+      if (q) setQuery(q)
+      await getMusicVideos(1, 12, q ? q : null)
+    }
+    run()
   }, [])
+
+  const handleSearch = async (e: ChangeEvent<HTMLFormElement>) => {
+    router.push(`?query=${query}`)
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    const data = await getMusicVideos(1, 12, formData.get('query') as string)
+    setVideos(data.videos)
+    try {
+    } catch (error: any) {
+      toast(error.message, { theme: 'dark' })
+    }
+  }
 
   return (
     <section className="trending__section hotsong__section pr-24 pl-24 pb-100">
       <div className="trending__selected mb-30 d-flex align-items-center justify-content-lg-between justify-content-center">
         <div className="select__lefts d-flex align-items-center">
           <form
-            action="#0"
+            onSubmit={handleSearch}
             className="d-flex align-items-center justify-content-between"
           >
-            <input type="text" placeholder="Search..." />
+            <input type="text" name="query" onChange={(e) => setQuery(e.target.value)} value={query} placeholder="Search..." />
             <button type="submit" aria-label="submit button">
               <IconSearch />
             </button>
