@@ -55,13 +55,7 @@ export const getUserProfile = AsyncHandler(async (req, res, next) => {
 
     res.status(200).json({
         status: true,
-        user: {
-            email: user.email,
-            fullName: `${user.first_name} ${user.last_name}`,
-            googleId: user?.googleId || null,
-            id_: user.id_,
-            phone: user?.phone
-        }
+        user: _.omit({ ...user, fullName: `${user.first_name} ${user.last_name}`, }, 'pass_word')
     })
 })
 
@@ -114,7 +108,7 @@ export const checkCode = AsyncHandler(async (req, res, next) => {
         }
     )
 })
-
+ 
 export const changePassword = AsyncHandler(async (req, res, next) => {
 
     const { email, password } = req.body
@@ -196,10 +190,10 @@ export const updateProfile = AsyncHandler(async (req, res, next) => {
 
 export const uploadProfilePicture = AsyncHandler(async (req, res, next) => {
 
-    const { file } = req
     const { userId } = req.params
+    const { imageBase64 } = req.body
 
-    if (!file) return next({ message: "Picture is needed", status: 400 })
+    if (!imageBase64) return next({ message: "Picture is needed", status: 400 })
     if (!userId) return next({ message: "User id is required", status: 400 })
 
     let user = await findUserById(userId)
@@ -215,7 +209,7 @@ export const uploadProfilePicture = AsyncHandler(async (req, res, next) => {
             id_: user.id_
         },
         data: {
-            img_: file.filename
+            img_: imageBase64
         }
     })
 

@@ -1,11 +1,15 @@
 'use client'
+import api from "@/lib/api";
+import { RootState } from "@/redux/store";
 /* eslint-disable @next/next/no-img-element */
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const AddProfileImage = () => {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
+    const { user } = useSelector((state: RootState) => state.user)
     const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files && event.target.files[0];
         if (!file) return;
@@ -18,6 +22,23 @@ const AddProfileImage = () => {
 
         reader.readAsDataURL(file);
     };
+
+
+    const handleUpload = async () => {
+        try {
+            const res = await api.server.PUT(`/users/${user?.id_}/update-profile-picture`, { imageBase64: selectedImage as string }, `${user?.access_token}`)
+            const data = await res.json();
+            toast(data.message)
+            if (data.status) window.location.reload()
+        } catch (error: any) {
+            toast(error.message, { theme: 'dark' })
+        }
+    }
+
+    useEffect(() => {
+        console.log(user)
+
+    }, [selectedImage])
     return (
         <div className="modal fade" id="addProfileImage" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
@@ -29,7 +50,7 @@ const AddProfileImage = () => {
                         {selectedImage && (
                             <div>
                                 <h2>Preview:</h2>
-                                <img src={selectedImage} alt="Preview" style={{ width: '100px', height: '100px', borderRadius: '50%', marginBottom: '10px', outline:'5px solid #3FCA90' }} />
+                                <img src={selectedImage} alt="Preview" style={{ width: '100px', height: '100px', borderRadius: '50%', marginBottom: '10px', outline: '5px solid #3FCA90' }} />
                             </div>
                         )}
                         <label htmlFor="profile">
@@ -50,7 +71,7 @@ const AddProfileImage = () => {
                         >
                             Cancel
                         </button>
-                        <button type="button" aria-label="button" className="btn base2">
+                        <button type="button" onClick={handleUpload} aria-label="button" className="btn base2">
                             Add
                         </button>
                     </div>

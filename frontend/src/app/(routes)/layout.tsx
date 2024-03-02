@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import Cookies from 'js-cookie'
+import AddProfileImage from "@/components/shared/AddProfileImageModal";
 
 export default function HomeLayout({
   children,
@@ -28,7 +29,7 @@ export default function HomeLayout({
       return toast(data.message, { theme: 'dark' })
     }
     console.log(data)
-    dispatch(login({ ...data.user, last_name: data.user.fullName?.split(' ')[0], first_name: data.user.fullName?.split(' ')[1], access_token:data.access_token }))
+    dispatch(login({ ...data.user, last_name: data.user.fullName?.split(' ')[0], first_name: data.user.fullName?.split(' ')[1], img_: data.user.img_, access_token: localStorage.getItem('access_token') }))
 
   }
 
@@ -56,6 +57,7 @@ export default function HomeLayout({
     <React.Fragment>
       {" "}
       {children}
+      <AddProfileImage />
       <ToastContainer />
     </React.Fragment>
   );

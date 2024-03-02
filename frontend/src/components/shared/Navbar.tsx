@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { mainNavbarData, sideBarData } from "@/../public/data/navBarData";
 import { RootState } from "@/redux/store";
@@ -204,12 +205,12 @@ const Navbar = () => {
                           data-bs-offset="0,16"
                           aria-expanded="true"
                         >
-                          <Image
-                            width={38}
-                            height={39}
-                            src="/img/bn/profile.jpg"
+                          <img
+                            src={user?.img_ || ''}
                             alt="image"
-                            className="img-fluid profile__img rounded-circle objec-fit-cover"
+                            className="img-fluid profile__img rounded-circle objec-fit-cover h-5"
+                            width={'100%'}
+                            height={'100%'}
                           />
                           <span className="d-flex fs-14 fw-500 pra align-items-center gap-1 d-none d-sm-block">
                             {user?.first_name} {user?.last_name}

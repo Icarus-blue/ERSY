@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import { exploreSectionData } from "@/../public/data/exploreSectionData";
@@ -48,10 +49,10 @@ const ProfileSection = () => {
             </div>
             <div className="story__change2 ralt row">
               <div className="thumb col-6">
-                <Image
-                  width={110}
-                  height={110}
-                  src="/img/profile/david.jpg"
+                <img
+                  width={''}
+                  height={''}
+                  src={user?.img_ || ''}
                   alt="img"
                   className="rounded"
                 />

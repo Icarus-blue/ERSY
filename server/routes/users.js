@@ -11,6 +11,6 @@ router.post('/send-password-reset-code', userController.sendPasswordResetCode)
 router.post('/check-code', userController.checkCode)
 router.post('/reset-password', userController.changePassword)
 router.put('/user', verifyToken, userController.updateProfile)
-router.put('/user/:userId/update-profile-picture', verifyToken, upload.single('profile'), userController.uploadProfilePicture)
+router.put('/:userId/update-profile-picture', verifyToken, userController.uploadProfilePicture)
 
 export default router;

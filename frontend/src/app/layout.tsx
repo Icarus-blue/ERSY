@@ -37,9 +37,9 @@ export default function RootLayout({
             <Suspense>{children}</Suspense>
           </main>
           <AudioPlayerModalLayoutTwo />
+        <AddProfileImage />
         </MainBody>
         <AddToPlaylistModal />
-        <AddProfileImage />
         <SharedModal />
         <DeletePostModal />
         <ReportModal />

@@ -490,7 +490,7 @@ model users {
   first_name          String?  @db.Text
   last_name           String?  @db.Text
   phone               String?  @db.Text
-  img_                String   @default("default_profile_pic.png") @db.VarChar(255)
+  img_                String?  @db.Text
   odometer            Int      @default(0)
   clicks              Int      @default(0)
   password_token      String?  @db.Text

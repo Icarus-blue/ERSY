@@ -9,6 +9,7 @@ type User = {
     phone: string;
     first_name: string;
     last_name: string;
+    img_: string;
     createdAt: Date;
     id_: string;
     access_token: string;

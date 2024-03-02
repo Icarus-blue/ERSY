@@ -2,6 +2,7 @@ import AsyncHandler from 'express-async-handler'
 import bcrypt from 'bcrypt'
 import { createToken } from '../utils/createToken.js'
 import { findUserByEmail } from '../services/userServices.js'
+import _ from 'lodash'
 
 
 export const login = AsyncHandler(async (req, res, next) => {
@@ -18,13 +19,7 @@ export const login = AsyncHandler(async (req, res, next) => {
     res.status(200).json(
         {
             status: true,
-            user: {
-                email: user.email,
-                fullName: `${user.first_name} ${user.last_name}`,
-                id_: user.id_,
-                googleId: user.googleId,
-                phone: user.phone
-            },
+            user: _.omit({ ...user, fullName: `${user.first_name} ${user.last_name}`, },'pass_word'),
             access_token: token
         }
     )
