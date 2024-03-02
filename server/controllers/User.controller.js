@@ -51,7 +51,6 @@ export const getUserProfile = AsyncHandler(async (req, res, next) => {
 
     let user = await findUserById(id)
     if (!user) return next({ message: 'user was not found', status: 404 })
-    console.log(user)
 
     res.status(200).json({
         status: true,

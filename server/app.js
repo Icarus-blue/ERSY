@@ -10,6 +10,7 @@ import session from 'express-session';
 
 import authRouter from './routes/auth.js'
 import indexRouter from './routes/index.js';
+import videoRouter from './routes/videos.js'
 import usersRouter from './routes/users.js';
 import './utils/passport.js'
 import { createToken } from './utils/createToken.js';
@@ -46,6 +47,7 @@ passport.deserializeUser(function (obj, cb) {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter)
+app.use('/data/videos', videoRouter)
 
 
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));

@@ -13,7 +13,7 @@ const albums = () => {
     <>
       <BreadCrumb page="Albums" />
       <Trending />
-      <PopularAlbums sectionTitle="Top Songs" sliderData={topSongData} />
+      <PopularAlbums sectionTitle="Popular Albums" sliderData={topSongData} />
     </>
   );
 };

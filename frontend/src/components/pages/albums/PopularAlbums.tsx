@@ -18,6 +18,8 @@ type Props = {
   }[];
 };
 const PopularAlbums = ({ sectionTitle, sliderData }: Props) => {
+
+
   return (
     // <!--genres section-->
     <section className="genres__section pr-24 pl-24 pb-100">

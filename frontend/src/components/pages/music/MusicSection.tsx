@@ -1,21 +1,49 @@
+'use client'
 import { topSongData } from "@/../public/data/topSongData";
 import SelectBox from "@/components/shared/SelectBox";
 import { IconSearch } from "@tabler/icons-react";
 import Link from "next/link";
 import MoodsCard from "../home/MoodsCard";
+import { toast } from "react-toastify";
+import api from "@/lib/api";
+import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
+import VideoCard from "../home/VideoCard";
+
+const artists = [
+  { label: "Tom Cook" },
+  { label: "Tanya Fox" },
+  { label: "Hellen Schmidt" },
+];
+
+const genres = [
+  { label: "All Artists" },
+  { label: "New Artists" },
+  { label: "Expert Artists" },
+];
 
 const MusicSection = () => {
-  const artists = [
-    { label: "Tom Cook" },
-    { label: "Tanya Fox" },
-    { label: "Hellen Schmidt" },
-  ];
+  const [videos, setVideos] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
-  const genres = [
-    { label: "All Artists" },
-    { label: "New Artists" },
-    { label: "Expert Artists" },
-  ];
+  const getMusicVideos = async (page: number, pageSize: number) => {
+    try {
+      const res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}`, '')
+      const data = await res.json();
+      if (data.status) setVideos((prev: any) => {
+        return [...prev, ...data.videos]
+      })
+    } catch (error: any) {
+      toast(error.message, { theme: 'dark' })
+    } finally {
+      setIsLoading(false)
+    }
+
+  }
+
+  useEffect(() => {
+
+    getMusicVideos(1, 12)
+  }, [])
 
   return (
     <section className="trending__section hotsong__section pr-24 pl-24 pb-100">
@@ -30,8 +58,8 @@ const MusicSection = () => {
               <IconSearch />
             </button>
           </form>
-          <SelectBox options={artists} />
-          <SelectBox options={genres} />
+          {/* <SelectBox options={artists} /> */}
+          {/* <SelectBox options={genres} /> */}
         </div>
         <ul className="nav nav-tabs" id="myTab" role="tablist">
           <li className="nav-item" role="presentation">
@@ -90,12 +118,12 @@ const MusicSection = () => {
             aria-labelledby="home-tab"
           >
             <div className="row g-4">
-              {topSongData.map(({ id, ...props }) => (
+              {videos.map(({ id, ...props }: any) => (
                 <div
                   key={id}
                   className="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-md-4 col-sm-4"
                 >
-                  <MoodsCard key={id} {...props} link="album-allsong" />
+                  <VideoCard key={id} {...props} link="album-allsong" />
                 </div>
               ))}
             </div>
@@ -136,9 +164,12 @@ const MusicSection = () => {
           </div>
         </div>
       </div>
-      <div className="text-center mt-60">
-        <Link href="workout-allsong" className="cmn__simple2">
-          Load More
+      <div className="text-center mt-60 " >
+        <Link href="#" onClick={(e) => {
+          e.preventDefault()
+          getMusicVideos(videos.length / 12, 12)
+        }} className="cmn__simple2" >
+          {isLoading ? 'loading...' : 'Load More'}
         </Link>
       </div>
     </section>

@@ -53,7 +53,7 @@ const ProfileSection = () => {
                   width={''}
                   height={''}
                   src={user?.img_ || ''}
-                  alt="img"
+                  alt=""
                   className="rounded"
                 />
                 <div className="boxes"

@@ -91,7 +91,7 @@ const ProfileEditForm = () => {
                       >
                         Full Name <span className="base2">*</span>
                       </label>
-                      <input type="text" id="fullName" placeholder="Rolex" name="fullName" value={`${user?.first_name} ${user?.last_name}`} onChange={(e) => handleChange(e)} />
+                      <input type="text" id="fullName" placeholder="Rolex" name="fullName"  onChange={(e) => handleChange(e)} />
                     </div>
                   </div>
                   <h4 className="white mb-0 pb-0 mt-60">Profile Details</h4>

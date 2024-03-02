@@ -7,6 +7,46 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model videos {
+  id_              Int @id
+  artist_id        Int
+  artist_url       String?  @db.Text
+  artist_name      String?  @db.Text
+  artist_group_id  String?  @db.Text
+  feat_artists     String?  @db.Text
+  album_id         Int?
+  video_id         String?  @db.VarChar(1000)
+  title            String?  @db.VarChar(1000)
+  duration         Int
+  uploader         String?  @db.Text
+  views            String   @default("0") @db.VarChar(255)
+  release_date     DateTime @default(now()) @db.DateTime(0)
+  added_date       DateTime @default(now()) @db.DateTime(0)
+  description_     String?  @db.VarChar(1000)
+  img              String?  @db.VarChar(1000)
+  category         String   @default("discography") @db.VarChar(255)
+  old_category     String?  @default("") @db.VarChar(255)
+  category_history String?  @db.Text
+  embed            String?  @db.Text
+  embed2           String?  @db.Text
+  embed3           String?  @db.Text
+  embed4           String?  @db.Text
+  embed5           String?  @db.Text
+  data_            String?  @db.Text
+  tags             String   @default("") @db.VarChar(2000)
+  album            String?  @db.Text
+  writers          String?  @db.Text
+  producers        String?  @db.Text
+  producer_id      Int?
+  producer_name    String?  @db.Text
+  streams          String?  @db.Text
+  sales            String?  @db.Text
+  label            String?  @db.Text
+
+  @@index([album_id], map: "album_id")
+  @@index([artist_id], map: "artist_id")
+}
+
 model activity_logs {
   id_           Int      @id
   user_name     String   @db.Text
@@ -534,47 +574,8 @@ model users_subscriptions {
   @@index([user_id], map: "user_id")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model videos {
-  id_              Int
-  artist_id        Int
-  artist_url       String?  @db.Text
-  artist_name      String?  @db.Text
-  artist_group_id  String?  @db.Text
-  feat_artists     String?  @db.Text
-  album_id         Int?
-  video_id         String?  @db.VarChar(1000)
-  title            String?  @db.VarChar(1000)
-  duration         Int
-  uploader         String?  @db.Text
-  views            String   @default("0") @db.VarChar(255)
-  release_date     DateTime @default(now()) @db.DateTime(0)
-  added_date       DateTime @default(now()) @db.DateTime(0)
-  description_     String?  @db.VarChar(1000)
-  img              String?  @db.VarChar(1000)
-  category         String   @default("discography") @db.VarChar(255)
-  old_category     String?  @default("") @db.VarChar(255)
-  category_history String?  @db.Text
-  embed            String?  @db.Text
-  embed2           String?  @db.Text
-  embed3           String?  @db.Text
-  embed4           String?  @db.Text
-  embed5           String?  @db.Text
-  data_            String?  @db.Text
-  tags             String   @default("") @db.VarChar(2000)
-  album            String?  @db.Text
-  writers          String?  @db.Text
-  producers        String?  @db.Text
-  producer_id      Int?
-  producer_name    String?  @db.Text
-  streams          String?  @db.Text
-  sales            String?  @db.Text
-  label            String?  @db.Text
+// / The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 
-  @@index([album_id], map: "album_id")
-  @@index([artist_id], map: "artist_id")
-  @@ignore
-}
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model view_history {
