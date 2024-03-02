@@ -24,14 +24,19 @@ const genres = [
 const MusicSection = () => {
   const [videos, setVideos] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(0)
 
   const getMusicVideos = async (page: number, pageSize: number) => {
+    setIsLoading(true)
     try {
       const res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}`, '')
       const data = await res.json();
-      if (data.status) setVideos((prev: any) => {
-        return [...prev, ...data.videos.filter((video, index, arr) => arr.indexOf(video) === index)]
-      })
+      if (data.status) {
+        setVideos((prev: any) => {
+          return [...prev, ...data.videos.filter((video, index, arr) => arr.indexOf(video) === index)]
+        })
+        setCurrentPage(prev => prev + 1)
+      }
     } catch (error: any) {
       toast(error.message, { theme: 'dark' })
     } finally {
@@ -135,12 +140,12 @@ const MusicSection = () => {
             aria-labelledby="profile-tab"
           >
             <div className="row g-4">
-              {topSongData.slice(4, 10).map(({ id, ...props }) => (
+              {videos.map(({ id, ...props }) => (
                 <div
-                  key={id}
+                  key={props.id}
                   className="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-md-4 col-sm-4"
                 >
-                  <MoodsCard key={id} {...props} link="album-allsong" />
+                  <VideoCard key={props.id} {...props} />
                 </div>
               ))}
             </div>
@@ -152,12 +157,12 @@ const MusicSection = () => {
             aria-labelledby="contact-tab"
           >
             <div className="row g-4">
-              {topSongData.slice(1, 5).map(({ id, ...props }) => (
+              {videos.map(({ id, ...props }) => (
                 <div
                   key={id}
                   className="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-md-4 col-sm-4"
                 >
-                  <MoodsCard key={id} {...props} link="album-allsong" />
+                  <VideoCard key={id} {...props} />
                 </div>
               ))}
             </div>
@@ -165,9 +170,9 @@ const MusicSection = () => {
         </div>
       </div>
       <div className="text-center mt-60 " >
-        <Link href="#" onClick={(e) => {
+        <Link href="#" onClick={async (e) => {
           e.preventDefault()
-          getMusicVideos(videos.length / 12, 12)
+          await getMusicVideos(currentPage + 1, 12)
         }} className="cmn__simple2" >
           {isLoading ? 'loading...' : 'Load More'}
         </Link>
