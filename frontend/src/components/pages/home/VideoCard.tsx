@@ -4,6 +4,7 @@ import PlayButton from './PlayButton'
 import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { setVideoId } from '@/redux/features/modalSlice';
+import { formatViewsCount } from '@/components/shared/formattedViews';
 
 type Props = {
     img: string;
@@ -21,10 +22,10 @@ type Props = {
     views: string;
 }
 
-function VideoCard({ img, title, video_id }: Props) {
+function VideoCard({ img, title, video_id, uploader, views }: Props) {
     const dispatch = useDispatch()
     return (
-        <div className="moods__item play-button-container" data-bs-toggle='modal'
+        <div className="moods__item play-button-container card h-100 d-flex flex-column justify-content-between" data-bs-toggle='modal'
             onClick={() => {
                 dispatch(setVideoId(video_id))
             }}
@@ -43,12 +44,24 @@ function VideoCard({ img, title, video_id }: Props) {
                     onClick={() => { }}
                 />
             </div>
-            <div className="content">
+            <div className="content d-flex flex-column">
                 <h5 className="mb-2">
-                    <Link href={`https://youtube.com/watch?v=${video_id}`} target='_blank' className="white">
+                    <Link href={`#`} target='_blank' data-bs-toggle='modal'
+                    
+                        onClick={() => {
+                            dispatch(setVideoId(video_id))
+                        }}
+                        className="white">
                         {title}
                     </Link>
                 </h5>
+
+                <span style={{color:'#5c5c5c', fontSize:'0.8rem'}}>
+                    {uploader}
+                </span>
+                <span style={{ color: '#5c5c5c', fontSize: '0.8rem' }}>
+                    {views && formatViewsCount(views)} views
+                </span>
             </div>
         </div>
     )

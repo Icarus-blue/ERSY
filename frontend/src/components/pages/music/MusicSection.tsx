@@ -172,7 +172,7 @@ const MusicSection = () => {
       <div className="text-center mt-60 " >
         <Link href="#" onClick={async (e) => {
           e.preventDefault()
-          await getMusicVideos(currentPage + 1, 12)
+          await getMusicVideos(currentPage === 0 ? 3 : currentPage + 1, 12)
         }} className="cmn__simple2" >
           {isLoading ? 'loading...' : 'Load More'}
         </Link>

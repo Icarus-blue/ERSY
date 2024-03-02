@@ -9,6 +9,7 @@ const PlayVideoModal = () => {
     const [loading, setLoading] = useState(false)
     const iframe = useRef(null)
 
+
     return (
         <div
             className="modal overlayadd fade"
@@ -21,7 +22,7 @@ const PlayVideoModal = () => {
                         <h4></h4>
                         <span data-bs-dismiss="modal" className="cmn--btn"
                             onClick={() => {
-                                iframe.current.src = null
+                                iframe.current.src = null;
                             }}
                         >
                             <span>
