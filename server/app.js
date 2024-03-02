@@ -11,11 +11,8 @@ import session from 'express-session';
 import authRouter from './routes/auth.js'
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
-import { connectDB } from './utils/connector.js';
 import './utils/passport.js'
 import { createToken } from './utils/createToken.js';
-import { PrismaClient } from '@prisma/client'
-import client from './utils/client.js';
 
 
 const app = express();
@@ -77,15 +74,11 @@ app.use(function (err, req, res, next) {
 });
 
 
-connectDB()
-  .then(() => {
-    server.listen(port, () => {
-      console.log("listening on port:", port);
-    })
-  })
-  .catch((err) => {
-    console.log('error connecting to database', err.message);
-  })
+
+
+server.listen(port, () => {
+  console.log("listening on port:", port);
+})
 
 
 

@@ -46,8 +46,8 @@ const ProfileSection = () => {
                 />
               </div>
             </div>
-            <div className="story__change2 ralt">
-              <div className="thumb">
+            <div className="story__change2 ralt row">
+              <div className="thumb col-6">
                 <Image
                   width={110}
                   height={110}
@@ -55,12 +55,15 @@ const ProfileSection = () => {
                   alt="img"
                   className="rounded"
                 />
-                <div className="boxes">
+                <div className="boxes"
+                  data-bs-toggle="modal"
+                  data-bs-target="#addProfileImage"
+                >
                   <IconPlus />
-                  <input type="file" accept="image/*" />
+                  {/* <input type="file" accept="image/*" /> */}
                 </div>
               </div>
-              <div className="content">
+              <div className="content col-6 overflow-hidden">
                 <span className="fs-20 fw-500 d-block white bodyfont mb-1">
                   {user?.first_name} {user?.last_name}
                 </span>

@@ -16,6 +16,7 @@ import "swiper/css/thumbs";
 import "swiper/scss/scrollbar";
 import ".././styles/sass/main.scss";
 import Loader from "./Loader";
+import AddProfileImage from "@/components/shared/AddProfileImageModal";
 
 export const metadata: Metadata = {
   title:
@@ -38,6 +39,7 @@ export default function RootLayout({
           <AudioPlayerModalLayoutTwo />
         </MainBody>
         <AddToPlaylistModal />
+        <AddProfileImage />
         <SharedModal />
         <DeletePostModal />
         <ReportModal />
