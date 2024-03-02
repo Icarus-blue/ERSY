@@ -30,7 +30,7 @@ const MusicSection = () => {
       const res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}`, '')
       const data = await res.json();
       if (data.status) setVideos((prev: any) => {
-        return [...prev, ...data.videos]
+        return [...prev, ...data.videos.filter((video, index, arr) => arr.indexOf(video) === index)]
       })
     } catch (error: any) {
       toast(error.message, { theme: 'dark' })

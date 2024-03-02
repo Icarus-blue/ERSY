@@ -36,7 +36,7 @@ export default function RootLayout({
           <main className="z-1">
             <Suspense>{children}</Suspense>
           </main>
-          <AudioPlayerModalLayoutTwo />
+          {/* <AudioPlayerModalLayoutTwo /> */}
         <AddProfileImage />
         </MainBody>
         <AddToPlaylistModal />

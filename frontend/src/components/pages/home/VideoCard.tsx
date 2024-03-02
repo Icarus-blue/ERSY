@@ -2,6 +2,8 @@ import Image from 'next/image'
 import React from 'react'
 import PlayButton from './PlayButton'
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import { setVideoId } from '@/redux/features/modalSlice';
 
 type Props = {
     img: string;
@@ -20,8 +22,13 @@ type Props = {
 }
 
 function VideoCard({ img, title, video_id }: Props) {
+    const dispatch = useDispatch()
     return (
-        <div className="moods__item play-button-container">
+        <div className="moods__item play-button-container" data-bs-toggle='modal'
+            onClick={() => {
+                dispatch(setVideoId(video_id))
+            }}
+            data-bs-target="#playVideoModal">
             <div className="thumb mb-16 ralt transition overhid">
                 <Image
                     width={200}

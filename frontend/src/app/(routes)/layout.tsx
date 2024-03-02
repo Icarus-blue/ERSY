@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import Cookies from 'js-cookie'
 import AddProfileImage from "@/components/shared/AddProfileImageModal";
+import PlayVideoModal from "@/components/shared/PlayVideoModal";
 
 export default function HomeLayout({
   children,
@@ -58,6 +59,7 @@ export default function HomeLayout({
       {" "}
       {children}
       <AddProfileImage />
+      <PlayVideoModal/>
       <ToastContainer />
     </React.Fragment>
   );
