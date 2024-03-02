@@ -8,6 +8,12 @@ import { findUserByEmail, findUserById } from '../services/userServices.js';
 import _ from 'lodash';
 import checkPasswords from '../utils/checkPasswords.js';
 import client from '../utils/client.js';
+import fs from 'fs'
+import { imageToBase64 } from '../utils/convertImage.js';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 
 export const createUser = AsyncHandler(async (req, res, next) => {
@@ -23,12 +29,15 @@ export const createUser = AsyncHandler(async (req, res, next) => {
 
     const hashedPwd = await bcrypt.hash(value.password, 10)
 
+    const img = imageToBase64(path.join(__dirname, '..', 'public', 'default_profile.jpg'))
+
     const newUser = await client.users.create({
         data: {
             email: value.email,
             pass_word: hashedPwd,
             last_name: fullName.split(' ')[0],
             first_name: fullName.split(' ')[1],
+            img_: img
         }
     })
 

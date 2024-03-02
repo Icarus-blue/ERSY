@@ -6,6 +6,8 @@ import http from 'http'
 import cors from 'cors'
 import passport from 'passport';
 import session from 'express-session';
+import path, { dirname } from 'path'
+import { fileURLToPath } from 'url'
 
 
 import authRouter from './routes/auth.js'
@@ -14,6 +16,8 @@ import videoRouter from './routes/videos.js'
 import usersRouter from './routes/users.js';
 import './utils/passport.js'
 import { createToken } from './utils/createToken.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 
 const app = express();
@@ -26,6 +30,7 @@ app.use(logger('dev'));
 app.use(express.json({
   limit: '35mb'
 }));
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: true, limit: '35mb', parameterLimit: 50000 }));
 app.use(cookieParser());
 app.use(session({
@@ -48,6 +53,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter)
 app.use('/data/videos', videoRouter)
+
 
 
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));

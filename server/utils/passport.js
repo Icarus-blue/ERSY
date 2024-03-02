@@ -38,11 +38,12 @@ passport.use(new GoogleStrategy({
                     email: profile._json.email,
                     last_name: `${profile._json.name.split(' ')[0]}`,
                     first_name: `${profile._json.name.split(' ')[1]}`,
-                    id_: profile._json.sub,
+                    // id_: parseInt(profile._json.sub),
                     pass_word: `null`,
                     username: `${profile._json.name}`,
                     phone: `null`,
-                    googleId: profile._json.sub
+                    googleId: profile._json.sub,
+                    img_: profile._json.picture
 
                 }
             })
