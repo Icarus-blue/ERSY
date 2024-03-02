@@ -71,7 +71,7 @@ const ProfileEditForm = () => {
                     </div>
                   </div>
 
-                  <div className="col-lg-6">y
+                  <div className="col-lg-6">
                     <div className="cover__grp">
                       <label
                         htmlFor="phoneNumber"

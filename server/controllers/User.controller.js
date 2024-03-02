@@ -108,7 +108,7 @@ export const checkCode = AsyncHandler(async (req, res, next) => {
         }
     )
 })
- 
+
 export const changePassword = AsyncHandler(async (req, res, next) => {
 
     const { email, password } = req.body
@@ -165,23 +165,27 @@ export const updateProfile = AsyncHandler(async (req, res, next) => {
     //     ...req.body, password: (req.body.newPassword && isOldPasswordCorrect) ? await bcrypt.hash(req.body.newPassword, 10) : user.password
     // })
 
-    await client.users.update({
+    console.log('result', req.body)
+    const result = await client.users.update({
         where: {
             id_: parseInt(id)
         },
         data: {
-            ...req.body
-            , pass_word: (req.body.newPassword && isOldPasswordCorrect) ? await bcrypt.hash(req.body.newPassword, 10) : user.pass_word
+
+            first_name: value.fullName && value.fullName.split(' ')[0],
+            last_name: value.fullName && value.fullName.split(' ')[1],
+            phone: value.phoneNumber,
+            email: value.email,
+            pass_word: (value.newPassword && isOldPasswordCorrect) ? await bcrypt.hash(value.newPassword, 10) : user.pass_word
         }
     })
-
     const updatedUser = await findUserById(id)
 
     res.status(200).json(
         {
             status: true,
             message: 'Your profile have been updated successfully',
-            user: _.omit(updatedUser, 'pass_word')
+            user: _.omit({ ...updatedUser, fullName: `${updatedUser.first_name} ${updatedUser.last_name}`, }, 'pass_word'),
         }
     )
 

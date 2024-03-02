@@ -9,7 +9,7 @@ export const UserValidObject = Joi.object({
 
 export const UserUpdateValidObject = Joi.object({
     email: Joi.string().email().min(10),
-    phoneNumber: Joi.string().min(9).max(13),
+    phone: Joi.string().min(9).max(13),
     fullName: Joi.string().min(3),
     oldPassword: Joi.string().min(6),
     newPassword: Joi.string().min(6),

@@ -64,6 +64,7 @@ const ProfileSection = () => {
                   {/* <input type="file" accept="image/*" /> */}
                 </div>
               </div>
+
               <div className="content col-6 overflow-hidden">
                 <span className="fs-20 fw-500 d-block white bodyfont mb-1">
                   {user?.first_name} {user?.last_name}
@@ -243,7 +244,7 @@ const ProfileSection = () => {
                       <Image
                         width={160}
                         height={160}
-                        src="/img/profile/followers.jpg"
+                        src={user?.img_ || ''}
                         alt="img"
                       />
                     </div>
