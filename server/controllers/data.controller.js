@@ -58,3 +58,25 @@ export const getArtist = expressAsyncHandler(async (req, res, next) => {
         // songs: artistSongs
     })
 })
+
+
+export const getAlbums = expressAsyncHandler(async (req, res, next) => {
+    const { page, pageSize, query } = req.query
+    const albums = await client.albums.findMany({
+        take: parseInt(pageSize),
+        skip: (page - 1) * pageSize,    
+        distinct: ['name_'],
+        where: {
+            name_: {
+                contains: query,
+                not: 'Other'
+            }
+        }
+    });
+
+
+    res.status(200).json({
+        status: true,
+        albums: albums.filter((album, index, arr) => arr.indexOf(album) === index)
+    })
+})
