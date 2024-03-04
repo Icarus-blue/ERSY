@@ -6,5 +6,6 @@ const router = Router()
 
 router.get('/videos', VideoController.getMusicVideos)
 router.get('/artists', VideoController.getArtistes)
+router.get("/artists/:artist_id", VideoController.getArtistAllSongs)
 
 export default router

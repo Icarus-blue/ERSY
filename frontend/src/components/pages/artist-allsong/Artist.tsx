@@ -1,6 +1,17 @@
+'use client'
+import api from "@/lib/api";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 const Artist = () => {
+
+  const getArtist = async () => {
+    try {
+      const res =await api.server.GET()
+    } catch (error:any) {
+      toast(error.message, {theme:'dark'})
+    }
+  }
   return (
     // <!--genres section-->
     <section className="genres__section custom__space pr-24 pl-24 pb-60">
