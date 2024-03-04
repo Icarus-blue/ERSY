@@ -12,7 +12,7 @@ import { fileURLToPath } from 'url'
 
 import authRouter from './routes/auth.js'
 import indexRouter from './routes/index.js';
-import videoRouter from './routes/videos.js'
+import videoRouter from './routes/data.js'
 import usersRouter from './routes/users.js';
 import './utils/passport.js'
 import { createToken } from './utils/createToken.js';
@@ -52,7 +52,7 @@ passport.deserializeUser(function (obj, cb) {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter)
-app.use('/data/videos', videoRouter)
+app.use('/data', videoRouter)
 
 
 

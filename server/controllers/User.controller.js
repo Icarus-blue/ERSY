@@ -46,7 +46,7 @@ export const createUser = AsyncHandler(async (req, res, next) => {
         {
             status: true,
             message: "User created successfully",
-            user: { id_: newUser.id_, fullName: `${newUser.last_name} ${newUser?.first_name}`, email: newUser.email, id_: newUser.id_, },
+            user: _.omit({ ...newUser, fullName: `${newUser.last_name} ${newUser?.first_name}` }, 'pass_word'),
             access_token: token
         }
     )
