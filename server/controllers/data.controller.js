@@ -3,17 +3,25 @@ import client from "../utils/client.js";
 import { getArtistById, getArtistByName, getArtistsSongs } from "../services/dataService.js";
 
 export const getMusicVideos = expressAsyncHandler(async (req, res, next) => {
+
     const { page, pageSize, query, album_id, album_name } = req.query
+    let where = {};
+
+    if (query) {
+        where.title = {
+            contains: query
+        };
+    }
+
+    if (album_id) {
+        where.album_id = parseInt(album_id);
+    }
+
     const videos = await client.videos.findMany({
         take: parseInt(pageSize),
         skip: (page - 1) * pageSize,
-        distinct: ['title', 'album', 'album_id'],
-        where: {
-            title: {
-                contains: query
-            },
-            album_id: parseInt(album_id),
-        },
+        distinct: ['title'],
+        where
     });
 
     res.status(200).json({
