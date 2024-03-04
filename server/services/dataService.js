@@ -32,3 +32,18 @@ export const getArtistsSongs = async (artist_id) => {
         throw new Error(error)
     }
 }
+
+export const getArtistByName = async (name) => {
+
+    try {
+        const artist = await client.artistes.findFirst({
+            where: {
+                name_: name
+            }
+        })
+
+        return artist;
+    } catch (error) {
+        throw new Error(error)
+    }
+}

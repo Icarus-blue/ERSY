@@ -1,6 +1,6 @@
 import expressAsyncHandler from "express-async-handler";
 import client from "../utils/client.js";
-import { getArtistById, getArtistsSongs } from "../services/dataService.js";
+import { getArtistById, getArtistByName, getArtistsSongs } from "../services/dataService.js";
 
 export const getMusicVideos = expressAsyncHandler(async (req, res, next) => {
     const { page, pageSize, query } = req.query
@@ -45,16 +45,16 @@ export const getArtistes = expressAsyncHandler(async (req, res, next) => {
 })
 
 
-export const getArtistAllSongs = expressAsyncHandler(async (req, res, next) => {
+export const getArtist = expressAsyncHandler(async (req, res, next) => {
     const { artist_id } = req.params
-    const artist = await getArtistById(parseInt(artist_id));
+    const artist = await getArtistByName(artist_id);
     if (!artist) return next({ message: 'artist could not be found', status: 404 })
 
-    let artistSongs = await getArtistsSongs(artist.id_)
+    // let artistSongs = await getArtistsSongs(artist.id_)
 
     res.status(200).json({
         status: true,
         artist,
-        songs: artistSongs
+        // songs: artistSongs
     })
 })
