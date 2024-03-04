@@ -16,17 +16,29 @@ type Props = {
   classList?: string;
   sectionTitle: string;
   children: (props: {
-    image: StaticImageData;
-    title: string;
-    location: string;
-    listeners: number;
+    image?: StaticImageData;
+    title?: string;
+    location?: string;
+    listeners?: number;
   }) => ReactNode;
   sliderData: {
-    id: string;
-    image: StaticImageData;
-    title: string;
-    location: string;
-    listeners: number;
+    id?: string;
+    image?: StaticImageData;
+    title?: string;
+    location?: string;
+    listeners?: number;
+    img?: string;
+    id_?: string;
+    artist_id?: string;
+    artist_name?: string;
+    artist_url?: string;
+    feat_artists?: string;
+    video_id?: string;
+    uploader?: string;
+    release_date?: Date;
+    added_date?: Date;
+    category?: string;
+    views?: string;
   }[];
 };
 const Trending = ({ classList, sectionTitle, sliderData, children }: Props) => {

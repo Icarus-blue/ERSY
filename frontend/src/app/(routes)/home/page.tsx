@@ -22,10 +22,10 @@ const Page = () => {
     <>
       <Banner />
       <TrendingSlider />
-      <Moods />
+      {/* <Moods /> */}
       <Artists />
-      <Workout start={0} end={6} />
-      <FeaturedShows />
+      {/* <Workout start={0} end={6} /> */}
+      {/* <FeaturedShows /> */}
       <Podcasts />
       <Product sectionTitle="Product" componentData={productData} />
       <LatestPost />

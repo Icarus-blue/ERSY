@@ -7,19 +7,22 @@ import { setVideoId } from '@/redux/features/modalSlice';
 import { formatViewsCount } from '@/components/shared/formattedViews';
 
 type Props = {
-    img: string;
-    title: string;
-    id_: string;
-    artist_id: string;
+    id?: string;
+    title?: string;
+    location?: string;
+    listeners?: number;
+    img?: string;
+    id_?: string;
+    artist_id?: string;
     artist_name?: string;
-    artist_url: string;
-    feat_artists: string;
-    video_id: string;
-    uploader: string;
-    release_date: Date;
-    added_date: Date;
-    category: string;
-    views: string;
+    artist_url?: string;
+    feat_artists?: string;
+    video_id?: string;
+    uploader?: string;
+    release_date?: Date;
+    added_date?: Date;
+    category?: string;
+    views?: string;
 }
 
 function VideoCard({ img, title, video_id, uploader, views }: Props) {

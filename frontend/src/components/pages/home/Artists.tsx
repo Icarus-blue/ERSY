@@ -10,7 +10,26 @@ import { Swiper, SwiperSlide } from "swiper/react";
 //@ts-ignore
 import { Navigation, Scrollbar } from "swiper";
 import ArtistsSliderCard from "./ArtistsSliderCard";
+import { toast } from "react-toastify";
+import api from "@/lib/api";
+import { useEffect, useState } from "react";
 const Artists = () => {
+  const [artists, setArtists] = useState([])
+
+  const getArtists = async () => {
+    try {
+      const res = await api.server.GET(`/data/artists?page=1&pageSize=10`, '')
+      const data = await res.json()
+      if (data.status) setArtists(prev => ([...prev, ...data.artists]))
+      console.log(data)
+    } catch (error: any) {
+      toast(error.message, { theme: 'dark' })
+    }
+  }
+
+  useEffect(() => {
+    getArtists()
+  }, [])
   return (
     // <!--artits section-->
     <section className="artits__section ralt pr-24 pl-24 pb-100">
@@ -64,8 +83,8 @@ const Artists = () => {
           className="swiper trending__slider"
         >
           <div className="swiper-wrapper">
-            {artistCardData.map(({ id, ...props }) => (
-              <SwiperSlide key={id}>
+            {artists.map(({ id_, ...props }) => (
+              <SwiperSlide key={id_}>
                 <ArtistsSliderCard {...props} />
               </SwiperSlide>
             ))}
