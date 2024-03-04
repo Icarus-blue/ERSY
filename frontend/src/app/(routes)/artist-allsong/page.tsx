@@ -1,18 +1,30 @@
 import { songUpgradeData } from "@/../public/data/songUpgrdeData";
 import SongUpgrade from "@/components/pages/album-allsong/SongUpgrade";
 import Artist from "@/components/pages/artist-allsong/Artist";
+import MainBody from "@/components/shared/MainBody";
+import { store } from "@/redux/store";
+import { getMusicVideos } from "@/utils/getMusicVideos";
 import { Metadata } from "next";
+import { Provider } from "react-redux";
 
 export const metadata: Metadata = {
   title:
     "Artist All Song - Ersy Multipurpose Audio Podcast & Music Nextjs Template",
   description: "Ersy Multipurpose Audio Podcast & Music Nextjs Template",
 };
-const artistAllSong = () => {
+const artistAllSong = async ({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams?: { [key: string]: string | undefined };
+}) => {
+
+  const data = await getMusicVideos(1, 10, searchParams?.artist)
   return (
     <>
       <Artist />
-      <SongUpgrade artistSong={songUpgradeData} sectionTitle="Most Popular" />
+      <SongUpgrade artistSong={data?.videos} sectionTitle="Most Popular" />
     </>
   );
 };

@@ -46,8 +46,8 @@ export const getArtistes = expressAsyncHandler(async (req, res, next) => {
 
 
 export const getArtistAllSongs = expressAsyncHandler(async (req, res, next) => {
-    const { id_ } = req.params
-    const artist = await getArtistById(id_);
+    const { artist_id } = req.params
+    const artist = await getArtistById(parseInt(artist_id));
     if (!artist) return next({ message: 'artist could not be found', status: 404 })
 
     let artistSongs = await getArtistsSongs(artist.id_)

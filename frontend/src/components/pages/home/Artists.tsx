@@ -21,7 +21,6 @@ const Artists = () => {
       const res = await api.server.GET(`/data/artists?page=1&pageSize=10`, '')
       const data = await res.json()
       if (data.status) setArtists(prev => ([...prev, ...data.artists]))
-      console.log(data)
     } catch (error: any) {
       toast(error.message, { theme: 'dark' })
     }
@@ -83,8 +82,8 @@ const Artists = () => {
           className="swiper trending__slider"
         >
           <div className="swiper-wrapper">
-            {artists.map(({ id_, ...props }) => (
-              <SwiperSlide key={id_}>
+            {artists.map(({ ...props }) => (
+              <SwiperSlide key={props.id_}>
                 <ArtistsSliderCard {...props} />
               </SwiperSlide>
             ))}

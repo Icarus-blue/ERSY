@@ -1,11 +1,14 @@
-import client from "../utils/client"
+import client from "../utils/client.js"
 
 export const getArtistById = async (id) => {
 
     try {
         const artist = await client.artistes.findFirst({
             where: {
-                id_: id
+                id_: id,
+                name_: {
+                    not: "0"
+                }
             }
         })
 

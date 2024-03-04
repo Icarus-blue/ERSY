@@ -1,17 +1,37 @@
 'use client'
 import api from "@/lib/api";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const Artist = () => {
 
+  const [artist, setArtist] = useState(null)
+  const [allSongs, setAllSongs] = useState([])
+  const sq = useSearchParams();
+
   const getArtist = async () => {
     try {
-      const res =await api.server.GET()
-    } catch (error:any) {
-      toast(error.message, {theme:'dark'})
+      const res = await api.server.GET(`/data/artists/${sq.get('artist')}`, '');
+      const data = await res.json()
+      console.log("data", data)
+      if (data.status) {
+        setArtist(data.artist)
+        setAllSongs(data.songs)
+        return
+      }
+      toast(data.message, { theme: 'dark' })
+    } catch (error: any) {
+      toast(error.message, { theme: 'dark' })
     }
   }
+
+  useEffect(() => {
+    getArtist()
+  }, [])
+
+  if(!artist) return
   return (
     // <!--genres section-->
     <section className="genres__section custom__space pr-24 pl-24 pb-60">
@@ -25,9 +45,9 @@ const Artist = () => {
             className="flex-shrink-0 h-auto"
           />
           <div className="artist__allcontent">
-            <h3 className="white mb-10">Chester Bennington</h3>
-            <span className="white fs-20 mb-16 fw-500 d-block">NLE Chappa</span>
-            <p className="fs-16 bodyfont pra mb-20">
+            <h3 className="white mb-10">{ artist.alternate_name}</h3>
+            <span className="white fs-20 mb-16 fw-500 d-block">{ artist.name_}</span>
+            {/* <p className="fs-16 bodyfont pra mb-20">
               Chester Bennington&apos;s legacy continues through his music, and
               he is remembered as a talented and influential artist who touched
               the lives of many with his emotive performances and deeply
@@ -53,7 +73,7 @@ const Artist = () => {
               his ability to convey deep emotions through his lyrics, made him
               an admired figure in the rock music scene. His performances were
               often praised for their energy and passion.
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

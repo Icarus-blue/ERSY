@@ -1,10 +1,10 @@
 import api from "@/lib/api";
 import { toast } from "react-toastify";
 
-export const getMusicVideos = async (page: number, pageSize: number) => {
+export const getMusicVideos = async (page: number, pageSize: number, query?:string) => {
   try {
     const res = await api.server.GET(
-      `/data/videos?page=${page}&pageSize=${pageSize}`,
+      `/data/videos?page=${page}&pageSize=${pageSize}&query=${query}`,
       ""
     );
     const data = await res.json();

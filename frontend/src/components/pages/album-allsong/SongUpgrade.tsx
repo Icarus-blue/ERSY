@@ -1,14 +1,27 @@
 import { StaticImageData } from "next/image";
 import SongUpgradeTableRow from "./SongUpgradeTableRow";
+import VideoCard from "../home/VideoCard";
+import ShortMusicVideo from "@/components/shared/ShortMusicVideo";
 type Props = {
   sectionTitle: string;
   artistSong: {
-    id: string;
-    title: string;
-    image: StaticImageData;
-    singer: string;
-    songDuration: string;
-    link: string;
+    id?: string;
+    title?: string;
+    location?: string;
+    listeners?: number;
+    img?: string;
+    id_?: string;
+    artist_id?: string;
+    artist_name?: string;
+    artist_url?: string;
+    feat_artists?: string;
+    video_id?: string;
+    uploader?: string;
+    release_date?: Date;
+    added_date?: Date;
+    category?: string;
+    views?: string;
+    duration: number;
   }[];
 };
 
@@ -23,9 +36,9 @@ const SongUpgrade = ({ sectionTitle, artistSong }: Props) => {
             <div className="latest__songwrap moods__allsong">
               <table className="table align-middle align-center w-100">
                 <tbody>
-                  {artistSong.slice(0, 5).map(({ id, ...props }, index) => (
-                    <SongUpgradeTableRow
-                      key={id}
+                  {artistSong.slice(0, 5).map(({ ...props }, index) => (
+                    <ShortMusicVideo
+                      key={props.id_}
                       {...props}
                       index={index + 1}
                     />
@@ -39,10 +52,10 @@ const SongUpgrade = ({ sectionTitle, artistSong }: Props) => {
               <table className="table align-middle align-center w-100">
                 <tbody>
                   {artistSong.slice(5, 10).map(({ id, ...props }, index) => (
-                    <SongUpgradeTableRow
-                      key={id}
+                    <ShortMusicVideo
+                      key={props.id_}
                       {...props}
-                      index={index + 6}
+                      index={index + 1}
                     />
                   ))}
                 </tbody>
