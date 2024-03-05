@@ -1,3 +1,4 @@
+
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { mainNavbarData, sideBarData } from "@/../public/data/navBarData";
@@ -21,6 +22,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import NotificationDropdown from "./NotificationDropdown";
 
 const Navbar = () => {
   const { isSidebarOpen, setIsSidebarOpen } = useContext(navbarContext);
@@ -334,79 +336,7 @@ const Navbar = () => {
                         >
                           <IconBell />
                         </Link>
-                        <div
-                          className="dropdown-menu dropdown-menu-end "
-                          data-popper-placement="bottom-end"
-                        >
-                          <ul className="list">
-                            <li className="mb-16">
-                              <Link href="#0" className="link d-flex dropdown-item">
-                                <Image
-                                  width={200}
-                                  height={200}
-                                  src="/img/mood/mood2.jpg"
-                                  className="notification__thumb"
-                                  alt="img"
-                                />
-                                <span className="notify__content">
-                                  <span className="fs-16 d-block fw-600 white ">
-                                    David95
-                                  </span>
-                                  <span className="fs-14 message d-block fw-500 pra ">
-                                    Message alert!
-                                  </span>
-                                  <span className="fs-10 fw-400 pra ">
-                                    10 Min ago
-                                  </span>
-                                </span>
-                              </Link>
-                            </li>
-                            <li className="mb-16">
-                              <Link href="#0" className="link d-flex dropdown-item">
-                                <Image
-                                  width={200}
-                                  height={200}
-                                  src="/img/mood/mood4.jpg"
-                                  className="notification__thumb"
-                                  alt="img"
-                                />
-                                <span className="notify__content">
-                                  <span className="fs-16 d-block fw-600 white ">
-                                    Mlan MCcoy
-                                  </span>
-                                  <span className="fs-14 message d-block fw-500 pra ">
-                                    Message alert!
-                                  </span>
-                                  <span className="fs-10 fw-400 pra ">
-                                    1 days ago
-                                  </span>
-                                </span>
-                              </Link>
-                            </li>
-                            <li>
-                              <Link href="#0" className="link d-flex dropdown-item">
-                                <Image
-                                  width={200}
-                                  height={200}
-                                  src="/img/mood/mood5.jpg"
-                                  className="notification__thumb"
-                                  alt="img"
-                                />
-                                <span className="notify__content">
-                                  <span className="fs-16 d-block fw-600 white ">
-                                    Neymer Jr
-                                  </span>
-                                  <span className="fs-14 message d-block fw-500 pra ">
-                                    Message alert!
-                                  </span>
-                                  <span className="fs-10 fw-400 pra ">
-                                    2 Month ago
-                                  </span>
-                                </span>
-                              </Link>
-                            </li>
-                          </ul>
-                        </div>
+                        <NotificationDropdown/>
                       </div>
                     </div>
                   </div>

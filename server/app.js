@@ -14,6 +14,7 @@ import authRouter from './routes/auth.js'
 import indexRouter from './routes/index.js';
 import videoRouter from './routes/data.js'
 import usersRouter from './routes/users.js';
+import NotificationRouter from './routes/notifications.js'
 import './utils/passport.js'
 import { createToken } from './utils/createToken.js';
 
@@ -53,7 +54,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter)
 app.use('/data', videoRouter)
-
+app.use('/notifications', NotificationRouter)
 
 
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
