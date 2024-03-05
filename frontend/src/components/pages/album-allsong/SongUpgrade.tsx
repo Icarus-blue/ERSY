@@ -1,7 +1,10 @@
+'use client'
 import { StaticImageData } from "next/image";
 import SongUpgradeTableRow from "./SongUpgradeTableRow";
 import VideoCard from "../home/VideoCard";
 import ShortMusicVideo from "@/components/shared/ShortMusicVideo";
+import { fetchData } from "@/utils/fetchData";
+import { useState } from "react";
 type Props = {
   sectionTitle: string;
   artistSong: {
@@ -23,11 +26,14 @@ type Props = {
     views?: string;
     duration: number;
   }[];
+  album_id?: string;
+  album?: string;
 };
 
-const SongUpgrade = ({ sectionTitle, artistSong }: Props) => {
+const SongUpgrade = ({ sectionTitle, artistSong, album, album_id }: Props) => {
 
-  console.log('artist songs', artistSong)
+  const [artistSongs, setArtistSongs] = useState([...artistSong])
+
   return (
     // <!--song upgrade section-->
     <section className="latest__upgrade pb-100 pr-24 pl-24">
@@ -38,7 +44,7 @@ const SongUpgrade = ({ sectionTitle, artistSong }: Props) => {
             <div className="latest__songwrap moods__allsong">
               <table className="table align-middle align-center w-100">
                 <tbody>
-                  {artistSong.slice(0, 5).map(({ ...props }, index) => (
+                  {artistSongs?.slice(0, artistSongs.length/2+1).map(({ ...props }, index) => (
                     <ShortMusicVideo
                       key={props.id_}
                       {...props}
@@ -53,7 +59,7 @@ const SongUpgrade = ({ sectionTitle, artistSong }: Props) => {
             <div className="latest__songwrap moods__allsong">
               <table className="table align-middle align-center w-100">
                 <tbody>
-                  {artistSong.slice(5, 10).map(({ id, ...props }, index) => (
+                  {artistSongs?.slice(5, -1).map(({ id, ...props }, index) => (
                     <ShortMusicVideo
                       key={props.id_}
                       {...props}
@@ -66,10 +72,17 @@ const SongUpgrade = ({ sectionTitle, artistSong }: Props) => {
           </div>
         </div>
         <div className="text-center mt-40">
-          <button className="cmn__simple2">Load More</button>
+          {/* <button className="cmn__simple2"
+            onClick={async () => {
+              const data = await fetchData('/data/videos', artistSong.length / 10 === 1 ? 2 : artistSong.length / 10, 10, null, parseInt(album_id), album)
+              data.status && (
+                setArtistSongs(prev => ([...prev, ...data.videos]))
+              )
+            }}
+          >Load More</button> */}
         </div>
       </div>
-    </section>
+    </section >
   );
 };
 

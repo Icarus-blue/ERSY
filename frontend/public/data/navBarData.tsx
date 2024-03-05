@@ -32,7 +32,7 @@ export const sideBarData = [
   {
     id: uuidv4(),
     menuTitle: "Artists",
-    path: "/explore",
+    path: "/artists",
     icon: <IconWorld />,
   },
   {

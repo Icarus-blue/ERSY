@@ -30,7 +30,7 @@ function ShortMusicVideo({ index, title, artist_name, duration }: Props) {
         <tr>
             <td>
                 <Link
-                    href="album-details"
+                    href="#"
                     className="upgrade__left d-flex align-items-center gap-3"
                 >
                     <span className="fs-16 fw-500 d-block bodyfont white">

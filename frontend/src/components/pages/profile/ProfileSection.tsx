@@ -310,7 +310,7 @@ const ProfileSection = () => {
                 <div className="col-lg-7">
                   <div className="latest__songwrap moods__allsong">
                     <table className="table align-middle align-center w-100">
-                      <tbody>
+                      {/* <tbody>
                         {songUpgradeData
                           .slice(0, 5)
                           .map(({ id, ...props }, index) => (
@@ -320,7 +320,7 @@ const ProfileSection = () => {
                               index={index + 1}
                             />
                           ))}
-                      </tbody>
+                      </tbody> */}
                     </table>
                     <div className="text-center mt-40">
                       <Link href="#0" className="cmn__simple2">
@@ -401,7 +401,7 @@ const ProfileSection = () => {
                 <div className="col-lg-7">
                   <div className="latest__songwrap moods__allsong">
                     <table className="table align-middle align-center w-100">
-                      <tbody>
+                      {/* <tbody>
                         {songUpgradeData
                           .slice(0, 5)
                           .map(({ id, ...props }, index) => (
@@ -411,7 +411,7 @@ const ProfileSection = () => {
                               index={index + 1}
                             />
                           ))}
-                      </tbody>
+                      </tbody> */}
                     </table>
                     <div className="text-center mt-40">
                       <Link href="#0" className="cmn__simple2">

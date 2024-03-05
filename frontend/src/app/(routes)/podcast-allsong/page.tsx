@@ -16,7 +16,7 @@ const podcastAllSong = () => {
     <>
       <PodcastAllSongSection />
       <Trending />
-      <SongUpgrade sectionTitle="Most Popular" artistSong={songUpgradeData} />
+      {/* <SongUpgrade sectionTitle="Most Popular" artistSong={songUpgradeData} /> */}
       <Comments />
     </>
   );

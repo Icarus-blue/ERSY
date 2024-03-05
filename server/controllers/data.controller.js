@@ -17,10 +17,6 @@ export const getMusicVideos = expressAsyncHandler(async (req, res, next) => {
         where.title = {
             contains: query
         };
-
-        where.nick_names = {
-            contains: query
-        }
     }
 
     if (album_id) {

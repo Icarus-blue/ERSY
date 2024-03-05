@@ -15,10 +15,10 @@ const moodsAllSong = () => {
     <>
       <BreadCrumSingle page="Moods" />
       <MoodsSlider />
-      <SongUpgrade
+      {/* <SongUpgrade
         sectionTitle=" Most Popular This Week"
         artistSong={songUpgradeData}
-      />
+      /> */}
     </>
   );
 };

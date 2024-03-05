@@ -21,11 +21,14 @@ const artistAllSong = async ({
 }) => {
 
 
-  const data = await fetchData('/data/videos',1, 10, searchParams?.artist)
+  const data = await fetchData('/data/videos', 1, 10, searchParams?.artist)
   return (
     <>
       <Artist />
-      <SongUpgrade artistSong={data?.videos} sectionTitle="Most Popular" />
+      <SongUpgrade
+
+        artistSong={data?.videos}
+        sectionTitle="Most Popular" />
     </>
   );
 };

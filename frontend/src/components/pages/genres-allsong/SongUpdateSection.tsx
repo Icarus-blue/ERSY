@@ -3,6 +3,7 @@ import { IconClockHour3 } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 import SongUpgradeTableRow from "../album-allsong/SongUpgradeTableRow";
+import ShortMusicVideo from "@/components/shared/ShortMusicVideo";
 
 const SongUpdateSection = () => {
   return (
@@ -53,15 +54,15 @@ const SongUpdateSection = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                {/* <tbody>
                   {songUpgradeData.map(({ id, ...props }, index) => (
-                    <SongUpgradeTableRow
+                    <ShortMusicVideo
                       key={id}
                       {...props}
                       index={index + 1}
                     />
                   ))}
-                </tbody>
+                </tbody> */}
               </table>
             </div>
             <div className="text-center mt-40">
