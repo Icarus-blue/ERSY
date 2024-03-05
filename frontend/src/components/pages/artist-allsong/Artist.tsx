@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 const Artist = () => {
 
   const [artist, setArtist] = useState(null)
-  const [allSongs, setAllSongs] = useState([])
   const sq = useSearchParams();
 
   const getArtist = async () => {
@@ -18,7 +17,6 @@ const Artist = () => {
       console.log("data", data)
       if (data.status) {
         setArtist(data.artist)
-        setAllSongs(data.songs)
         return
       }
       toast(data.message, { theme: 'dark' })

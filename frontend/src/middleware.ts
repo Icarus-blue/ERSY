@@ -27,5 +27,15 @@ export function middleware(request: NextRequest) {
 // };
 
 export const config = {
-  matcher: ['/home', '/musi', '/explore', '/albums','/profile','/profile-edit'],
+  matcher: [
+    "/home",
+    "/musi",
+    "/explore",
+    "/albums",
+    "/profile",
+    "/profile-edit",
+    "/artists",
+    "/artist-allsong",
+    "/album-allsong"
+  ],
 };

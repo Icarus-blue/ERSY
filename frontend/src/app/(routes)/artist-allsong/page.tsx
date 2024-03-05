@@ -3,7 +3,7 @@ import SongUpgrade from "@/components/pages/album-allsong/SongUpgrade";
 import Artist from "@/components/pages/artist-allsong/Artist";
 import MainBody from "@/components/shared/MainBody";
 import { store } from "@/redux/store";
-import { getMusicVideos } from "@/utils/getMusicVideos";
+import { fetchData } from "@/utils/fetchData";
 import { Metadata } from "next";
 import { Provider } from "react-redux";
 
@@ -20,7 +20,8 @@ const artistAllSong = async ({
   searchParams?: { [key: string]: string | undefined };
 }) => {
 
-  const data = await getMusicVideos(1, 10, searchParams?.artist)
+
+  const data = await fetchData('/data/videos',1, 10, searchParams?.artist)
   return (
     <>
       <Artist />

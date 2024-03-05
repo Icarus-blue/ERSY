@@ -1,7 +1,20 @@
+'use client'
 import { moodsCardData } from "@/../public/data/moodsCardData";
 import MoodsCard from "../home/MoodsCard";
+import { useEffect, useState } from "react";
+import { fetchData } from "@/utils/fetchData";
+import AlbumCard from "@/components/shared/AlbumCard";
 
 const Trending = () => {
+  const [albums, setAlbums] = useState([])
+  useEffect(() => {
+    const getData = async () => {
+      const data = await fetchData('/data/albums', 1, 12)
+      if (data.status) setAlbums(data.albums)
+    }
+
+    getData()
+  }, [])
   return (
     // <!--genres section-->
     <section className="trending__section hotsong__section pr-24 pl-24 pb-100">
@@ -93,16 +106,22 @@ const Trending = () => {
             aria-labelledby="home-tab"
           >
             <div className="row g-4">
-              {moodsCardData.map(({ id, ...props }) => (
+              {albums.map(({ ...props }) => (
                 <div
-                  key={id}
+                  key={props.id_}
                   className="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-md-4 col-sm-4"
                 >
-                  <MoodsCard {...props} link="album-allsong" />
+                  <AlbumCard {...props} link="album-allsong" />
                 </div>
               ))}
               <div className="text-center mt-40">
-                <button className="cmn__simple2">Load More</button>
+                <button className="cmn__simple2"
+
+                  onClick={async () => {
+                    const data = await fetchData('/data/albums', (albums.length <= 12) ? 2 : albums.length / 12, 12)
+                    data.status ? setAlbums(prev => ([...prev, ...data.albums])) : null
+                  }}
+                >Load More</button>
               </div>
             </div>
           </div>
@@ -113,16 +132,21 @@ const Trending = () => {
             aria-labelledby="profile-tab"
           >
             <div className="row g-4">
-              {moodsCardData.slice(6, 12).map(({ id, ...props }) => (
+              {albums.map(({ ...props }) => (
                 <div
-                  key={id}
+                  key={props.id}
                   className="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-md-4 col-sm-4"
                 >
-                  <MoodsCard key={id} {...props} link="album-allsong" />
+                  <AlbumCard key={props.id} {...props} link="album-allsong" />
                 </div>
               ))}
               <div className="text-center mt-40">
-                <button className="cmn__simple2">Load More</button>
+                <button className="cmn__simple2"
+                  onClick={async () => {
+                    const data = await fetchData('/data/albums', (albums.length <= 12) ? 2 : albums.length / 12, 12)
+                    data.status ? setAlbums(prev => ([...prev, ...data.albums])) : null
+                  }}
+                >Load More</button>
               </div>
             </div>
           </div>
@@ -133,16 +157,21 @@ const Trending = () => {
             aria-labelledby="contact-tab"
           >
             <div className="row g-4">
-              {moodsCardData.slice(0, 6).map(({ id, ...props }) => (
+              {albums.map(({ ...props }) => (
                 <div
-                  key={id}
+                  key={props.id}
                   className="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-md-4 col-sm-4"
                 >
-                  <MoodsCard key={id} {...props} link="album-allsong" />
+                  <AlbumCard key={props.id} {...props} link="album-allsong" />
                 </div>
               ))}
               <div className="text-center mt-40">
-                <button className="cmn__simple2">Load More</button>
+                <button className="cmn__simple2"
+                  onClick={async () => {
+                    const data = await fetchData('/data/albums', (albums.length <= 12) ? 2 : albums.length / 12, 12)
+                    data.status ? setAlbums(prev => ([...prev, ...data.albums])) : null
+                  }}
+                >Load More</button>
               </div>
             </div>
           </div>
@@ -153,16 +182,21 @@ const Trending = () => {
             aria-labelledby="contact-tabjozz"
           >
             <div className="row g-4">
-              {moodsCardData.slice(4, 10).map(({ id, ...props }) => (
+              {albums.map(({ ...props }) => (
                 <div
-                  key={id}
+                  key={props.id}
                   className="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-md-4 col-sm-4"
                 >
-                  <MoodsCard key={id} {...props} link="album-allsong" />
+                  <AlbumCard key={props.id} {...props} link="album-allsong" />
                 </div>
               ))}
               <div className="text-center mt-40">
-                <button className="cmn__simple2">Load More</button>
+                <button className="cmn__simple2"
+                  onClick={async () => {
+                    const data = await fetchData('/data/albums', (albums.length <= 12) ? 2 : albums.length / 12, 12)
+                    data.status ? setAlbums(prev => ([...prev, ...data.albums])) : null
+                  }}
+                >Load More</button>
               </div>
             </div>
           </div>
@@ -173,16 +207,21 @@ const Trending = () => {
             aria-labelledby="contact-tabother"
           >
             <div className="row g-4">
-              {moodsCardData.slice(6, 12).map(({ id, ...props }) => (
+              {albums.map(({ ...props }) => (
                 <div
-                  key={id}
+                  key={props.id}
                   className="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-md-4 col-sm-4"
                 >
-                  <MoodsCard key={id} {...props} link="album-allsong" />
+                  <AlbumCard key={props.id} {...props} link="album-allsong" />
                 </div>
               ))}
               <div className="text-center mt-40">
-                <button className="cmn__simple2">Load More</button>
+                <button className="cmn__simple2"
+                  onClick={async () => {
+                    const data = await fetchData('/data/albums', (albums.length <= 12) ? 2 : albums.length / 12, 12)
+                    data.status ? setAlbums(prev => ([...prev, ...data.albums])) : null
+                  }}
+                >Load More</button>
               </div>
             </div>
           </div>

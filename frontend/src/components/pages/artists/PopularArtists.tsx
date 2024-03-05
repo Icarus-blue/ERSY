@@ -1,21 +1,35 @@
+'use client'
 import { artistCardData } from "@/../public/data/artistsCardData";
 import LoadMore from "@/components/shared/LoadMore";
 import SelectBox from "@/components/shared/SelectBox";
 import { IconSearch } from "@tabler/icons-react";
 import ArtistsSliderCard from "../home/ArtistsSliderCard";
+import { fetchData } from "@/utils/fetchData";
+import { useEffect, useState } from "react";
+const artists = [
+  { label: "Tom Cook" },
+  { label: "Tanya Fox" },
+  { label: "Hellen Schmidt" },
+];
 
+const genres = [
+  { label: "All Artists" },
+  { label: "New Artists" },
+  { label: "Expert Artists" },
+];
 const PopularArtists = () => {
-  const artists = [
-    { label: "Tom Cook" },
-    { label: "Tanya Fox" },
-    { label: "Hellen Schmidt" },
-  ];
 
-  const genres = [
-    { label: "All Artists" },
-    { label: "New Artists" },
-    { label: "Expert Artists" },
-  ];
+  const [artists, setArtists] = useState([])
+
+  useEffect(() => {
+
+    const getData = async () => {
+      let data = await fetchData('/data/artists', 1, 12)
+      data.artists && setArtists(data.artists)
+    }
+
+    getData()
+  }, [])
   return (
     // <!--genres section-->
     <section className="trending__section pr-24 pl-24 pb-100">
@@ -30,8 +44,8 @@ const PopularArtists = () => {
               <IconSearch />
             </button>
           </form>
-          <SelectBox options={artists} />
-          <SelectBox options={genres} />
+          {/* <SelectBox options={artists} /> */}
+          {/* <SelectBox options={genres} /> */}
         </div>
         <ul className="nav nav-tabs" id="myTab" role="tablist">
           <li className="nav-item" role="presentation">
@@ -90,15 +104,23 @@ const PopularArtists = () => {
             aria-labelledby="home-tab"
           >
             <div className="row g-4">
-              {artistCardData.slice(0, 8).map(({ id, ...props }) => (
+              {artists.map((props) => (
                 <div
-                  key={id}
+                  key={props.id_}
                   className="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6"
                 >
                   <ArtistsSliderCard {...props} />
                 </div>
               ))}
-              <LoadMore />
+              <div className="text-center mt-40">
+                <button className="cmn__simple2"
+                  onClick={async () => {
+                    const data = await fetchData('/data/artists', (artists.length <= 12) ? 2 : artists.length / 12, 12)
+                    data.status ? setArtists(prev => ([...prev, ...data.artists])) : null
+                  }}
+                >
+                  Load More</button>
+              </div>
             </div>
           </div>
           <div
@@ -108,15 +130,22 @@ const PopularArtists = () => {
             aria-labelledby="profile-tab"
           >
             <div className="row g-4">
-              {artistCardData.slice(0, 4).map(({ id, ...props }) => (
+              {artists.map((props) => (
                 <div
-                  key={id}
+                  key={props.id_}
                   className="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6"
                 >
                   <ArtistsSliderCard {...props} />
                 </div>
               ))}
-              <LoadMore />
+              <div className="text-center mt-40">
+                <button className="cmn__simple2"
+                  onClick={async () => {
+                    const data = await fetchData('/data/artists', (artists.length <= 12) ? 2 : artists.length / 12, 12)
+                    data.status ? setArtists(prev => ([...prev, ...data.artists])) : null
+                  }}
+                >Load More</button>
+              </div>
             </div>
           </div>
           <div
@@ -126,15 +155,22 @@ const PopularArtists = () => {
             aria-labelledby="contact-tab"
           >
             <div className="row g-4">
-              {artistCardData.slice(0, 4).map(({ id, ...props }) => (
+              {artists.map((props) => (
                 <div
-                  key={id}
+                  key={props.id_}
                   className="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-sm-6"
                 >
                   <ArtistsSliderCard {...props} />
                 </div>
               ))}
-              <LoadMore />
+              <div className="text-center mt-40">
+                <button className="cmn__simple2"
+                  onClick={async () => {
+                    const data = await fetchData('/data/artists', (artists.length <= 12) ? 2 : artists.length / 12, 12)
+                    data.status ? setArtists(prev => ([...prev, ...data.artists])) : null
+                  }}
+                >Load More</button>
+              </div>
             </div>
           </div>
         </div>

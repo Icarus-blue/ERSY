@@ -16,7 +16,7 @@ export const songUpgradeData = [
     title: "From The Start",
     image: image1,
     singer: "Laufey",
-    songDuration: "3:30",
+    duration: 122,
     link: "albumb-details",
   },
   {

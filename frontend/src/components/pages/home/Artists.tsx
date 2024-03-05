@@ -36,7 +36,7 @@ const Artists = () => {
         <div className="header__text mb-24 d-flex align-items-center justify-content-between flex-wrap gap-2">
           <h2>Popular Artists</h2>
           <Link
-            href="artist-allsong"
+            href="artists"
             className="view__btn white d-flex align-items-center gap-2"
           >
             View All

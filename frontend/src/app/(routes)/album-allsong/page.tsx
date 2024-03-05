@@ -12,7 +12,7 @@ const albumAllSong = () => {
   return (
     <>
       <TopSinger />
-      <SongUpgrade sectionTitle="Mix All Songs" artistSong={songUpgradeData} />
+      {/* <SongUpgrade sectionTitle="Mix All Songs" artistSong={songUpgradeData} /> */}
     </>
   );
 };

@@ -40,8 +40,9 @@ type Props = {
     category?: string;
     views?: string;
   }[];
+  href: string;
 };
-const Trending = ({ classList, sectionTitle, sliderData, children }: Props) => {
+const Trending = ({ classList, sectionTitle, sliderData, children, href }: Props) => {
   return (
     // <!--Trending section-->
     <section
@@ -51,7 +52,7 @@ const Trending = ({ classList, sectionTitle, sliderData, children }: Props) => {
         <div className="header__text mb-24 d-flex align-items-center justify-content-between flex-wrap gap-2">
           <h2>{sectionTitle}</h2>
           <Link
-            href="trending"
+            href={href}
             className="view__btn white d-flex align-items-center gap-2"
           >
             View All
@@ -96,12 +97,12 @@ const Trending = ({ classList, sectionTitle, sliderData, children }: Props) => {
           }}
           className="swiper trending__slider"
         >
-          <div className="swiper-wrapper">
+          <div className="">
             {sliderData.map(({ id, ...props }) => (
               <SwiperSlide key={id}>{children({ ...props })}</SwiperSlide>
             ))}
           </div>
-          <div className="d-flex gap-4 mt-40 align-items-center">
+          <div className="d-flex gap-4 align-items-center">
             <div className="gap-1 d-flex">
               <div className="cmn-button-prev2">
                 <IconChevronLeft />

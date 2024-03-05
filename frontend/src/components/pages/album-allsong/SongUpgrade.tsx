@@ -26,6 +26,8 @@ type Props = {
 };
 
 const SongUpgrade = ({ sectionTitle, artistSong }: Props) => {
+
+  console.log('artist songs', artistSong)
   return (
     // <!--song upgrade section-->
     <section className="latest__upgrade pb-100 pr-24 pl-24">

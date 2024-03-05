@@ -6,15 +6,14 @@ import { StaticImageData } from "next/image";
 //@ts-ignore
 import { Navigation, Scrollbar } from "swiper";
 import MoodsCard from "../home/MoodsCard";
+import AlbumCard from "@/components/shared/AlbumCard";
 
 type Props = {
   sectionTitle: string;
   sliderData: {
-    id: string;
-    image: StaticImageData;
-    title: string;
-    subTitle: string;
-    song: string;
+    name_: string;
+    artist_name: string;
+    id_: number;
   }[];
 };
 const PopularAlbums = ({ sectionTitle, sliderData }: Props) => {
@@ -65,12 +64,13 @@ const PopularAlbums = ({ sectionTitle, sliderData }: Props) => {
           }}
           className="swiper products__slider"
         >
-          <div className="swiper-wrapper">
-            {sliderData.map(({ id, ...props }) => (
-              <SwiperSlide key={id}>
-                <div className="swiper-slide">
+          <div className=" ">
+            {sliderData.map(({ ...props }) => (
+              <SwiperSlide key={props.id_}>
+                {/* <div className="swiper-slide">
                   <MoodsCard {...props} link="music-details" />
-                </div>
+                </div> */}
+                <AlbumCard {...props} />
               </SwiperSlide>
             ))}
           </div>
