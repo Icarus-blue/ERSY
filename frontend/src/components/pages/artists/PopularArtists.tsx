@@ -5,7 +5,9 @@ import SelectBox from "@/components/shared/SelectBox";
 import { IconSearch } from "@tabler/icons-react";
 import ArtistsSliderCard from "../home/ArtistsSliderCard";
 import { fetchData } from "@/utils/fetchData";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "react-toastify";
 const artists = [
   { label: "Tom Cook" },
   { label: "Tanya Fox" },
@@ -20,6 +22,11 @@ const genres = [
 const PopularArtists = () => {
 
   const [artists, setArtists] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(0)
+  const [query, setQuery] = useState('')
+  const sq = useSearchParams();
+  const router = useRouter()
 
   useEffect(() => {
 
@@ -30,16 +37,42 @@ const PopularArtists = () => {
 
     getData()
   }, [])
+
+  const handleSearch = async (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    router.push(`?query=${query}`)
+    const formData = new FormData(e.target)
+    const data = await fetchData('/data/artists', 1, 12, formData.get('query') as string)
+    setArtists(data.artists)
+    // !data.status && toast(data.message)
+    try {
+    } catch (error: any) {
+    }
+  }
+
+
+  useEffect(() => {
+    const run = async () => {
+      const q = sq.get('query')
+      if (q) {
+        setQuery(q)
+      const data = await fetchData('/data/artists', 1, 1, q)
+        data.status && setArtists(data.artists)
+      }
+    }
+    run()
+  }, [])
+
   return (
     // <!--genres section-->
     <section className="trending__section pr-24 pl-24 pb-100">
       <div className="trending__selected mb-30 d-flex align-items-center justify-content-center justify-content-lg-between">
         <div className="select__lefts d-flex align-items-center">
           <form
-            action="#0"
+            onSubmit={handleSearch}
             className="d-flex align-items-center justify-content-between"
           >
-            <input type="text" placeholder="Search..." />
+            <input type="text" name="query" onChange={(e) => setQuery(e.target.value)} value={query} placeholder="Search..." />
             <button type="submit" aria-label="submit button">
               <IconSearch />
             </button>

@@ -2,20 +2,31 @@ import expressAsyncHandler from "express-async-handler";
 import client from "../utils/client.js";
 import { getArtistById, getArtistByName, getArtistsSongs } from "../services/dataService.js";
 
+const generateWhere = (query, album_id) => {
+
+    return { ...where }
+}
+
 export const getMusicVideos = expressAsyncHandler(async (req, res, next) => {
 
     const { page, pageSize, query, album_id, album_name } = req.query
+
     let where = {};
 
     if (query) {
         where.title = {
             contains: query
         };
+
+        where.nick_names = {
+            contains: query
+        }
     }
 
     if (album_id) {
         where.album_id = parseInt(album_id);
     }
+
 
     const videos = await client.videos.findMany({
         take: parseInt(pageSize),
@@ -31,20 +42,27 @@ export const getMusicVideos = expressAsyncHandler(async (req, res, next) => {
 })
 
 export const getArtistes = expressAsyncHandler(async (req, res, next) => {
+
     const { page, pageSize, query } = req.query
+    // const where = generateWhere(query)
+    let where = {
+        name_: {
+            not: '0'
+        }
+    };
+
+    if (query) {
+        where.name_ = {
+            contains: query
+        };
+    }
+    console.log('where', where)
     const artistes = await client.artistes.findMany({
         take: parseInt(pageSize),
         skip: (page - 1) * pageSize,
         distinct: ['id_'],
-        where: {
-            name_: {
-                contains: query,
-                not: "0"
-            },
-            nick_names: {
-                contains: query
-            },
-        }
+        where: where
+
     })
 
     res.status(200).json({
