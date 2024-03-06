@@ -1,6 +1,8 @@
 'use client'
 import api from "@/lib/api";
+import { IconBrandFacebook, IconBrandFacebookFilled, IconBrandInstagram, IconBrandWikipedia, IconBrandYoutube, IconBrandYoutubeFilled } from "@tabler/icons-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -8,6 +10,7 @@ import { toast } from "react-toastify";
 const Artist = () => {
 
   const [artist, setArtist] = useState(null)
+  const [artistImage, setArtistImage] = useState('')
   const sq = useSearchParams();
 
   const getArtist = async () => {
@@ -25,11 +28,26 @@ const Artist = () => {
     }
   }
 
+  const getArtistImage = async (name: string) => {
+    try {
+      const res = await fetch(`https://api.unsplash.com/search/photos?page=3&per_page=1&query=${name}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`)
+      const data = await res.json()
+      console.log('image data', data)
+      setArtistImage(data.results[0].links.self)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
-    getArtist()
+    const getData = async () => {
+      getArtist()
+      getArtistImage(sq.get('artist'))
+    }
+    getData()
   }, [])
 
-  if(!artist) return
+  if (!artist) return
   return (
     // <!--genres section-->
     <section className="genres__section custom__space pr-24 pl-24 pb-60">
@@ -38,13 +56,29 @@ const Artist = () => {
           <Image
             width={390}
             height={390}
-            src="/img/details/artist-man.jpg"
-            alt="img"
+            src={artistImage}
+            alt=""
             className="flex-shrink-0 h-auto"
           />
           <div className="artist__allcontent">
-            <h3 className="white mb-10">{ artist.alternate_name}</h3>
-            <span className="white fs-20 mb-16 fw-500 d-block">{ artist.name_}</span>
+            <h3 className="white mb-10">{artist.alternate_name}</h3>
+            <span className="white fs-20 mb-16 fw-500 d-block">{artist.name_}</span>
+            <div className="d-flex justify-content-between">
+              <Link href={artist?.wikipedia} target="_blank" className="p-2 white fs-20 mb-16 fw-500 d-block">
+                <span><IconBrandWikipedia /></span>
+              </Link>
+              <Link href={artist?.facebook} target="_blank" className="p-2 white fs-20 mb-16 fw-500 d-block">
+                <span><IconBrandFacebookFilled /></span>
+              </Link>
+
+              <Link href={artist?.instagram} target="_blank" className="p-2 white fs-20 mb-16 fw-500 d-block">
+                <span><IconBrandInstagram /></span>
+              </Link>
+
+              <Link href={artist?.youtube} target="_blank" className="p-2 white fs-20 mb-16 fw-500 d-block">
+                <span><IconBrandYoutubeFilled /></span>
+              </Link>
+            </div>
             {/* <p className="fs-16 bodyfont pra mb-20">
               Chester Bennington&apos;s legacy continues through his music, and
               he is remembered as a talented and influential artist who touched
