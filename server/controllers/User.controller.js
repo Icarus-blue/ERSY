@@ -182,7 +182,7 @@ export const updateProfile = AsyncHandler(async (req, res, next) => {
 
             first_name: value.fullName && value.fullName.split(' ')[0],
             last_name: value.fullName && value.fullName.split(' ')[1],
-            phone: value.phoneNumber,
+            phone: value.phone,
             email: value.email,
             pass_word: (value.newPassword && isOldPasswordCorrect) ? await bcrypt.hash(value.newPassword, 10) : user.pass_word
         }

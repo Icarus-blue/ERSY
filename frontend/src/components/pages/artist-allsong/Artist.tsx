@@ -33,9 +33,9 @@ const Artist = () => {
       const res = await fetch(`https://api.unsplash.com/search/photos?page=3&per_page=1&query=${name}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`)
       const data = await res.json()
       console.log('image data', data)
-      setArtistImage(data.results[0].links.self)
+      setArtistImage(data.results[0].urls.raw)
     } catch (error) {
-      console.log(error)
+      console.log('error')
     }
   }
 
@@ -53,10 +53,10 @@ const Artist = () => {
     <section className="genres__section custom__space pr-24 pl-24 pb-60">
       <div className="container-fluid">
         <div className="artist__allhead d-flex">
-          <Image
+          <img
             width={390}
             height={390}
-            src={artistImage}
+            src={`${artistImage}?client_id=bLxn0sAwYEUfRYnrzUr97iCJ0A-Pg2ENeBguYX8Z8H8`}
             alt=""
             className="flex-shrink-0 h-auto"
           />

@@ -62,12 +62,12 @@ app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'em
 
 app.get('/callback', passport.authenticate('google', { failureRedirect: '/auth/google' }), async (req, res, next) => {
   const token = await createToken(req.user.id_);
-  res.redirect(`${process.env.FRONTEND_URL}?access_token=${token}&user=${JSON.stringify(_.omit(req.user, 'pass_word'))}`)
+  res.redirect(`${process.env.FRONTEND_URL}?access_token=${token}&user=${JSON.stringify(req.user)}`)
 })
 
 
 
-
+  
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

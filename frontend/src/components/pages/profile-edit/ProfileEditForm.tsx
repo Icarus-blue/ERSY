@@ -4,7 +4,7 @@ import { RootState } from "@/redux/store";
 import { updateUser } from "@/redux/userSlice";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -28,6 +28,10 @@ const ProfileEditForm = () => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setProfile(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
+
+  useEffect(() => {
+    (user && (user.phone !== null && user.phone != "null")) ? setProfile(prev => ({ ...prev, phone: user.phone })) : setProfile(prev => ({ ...prev, phone: '' }))
+  }, [user.phone, user])
 
   const handleProfileChange = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -79,7 +83,7 @@ const ProfileEditForm = () => {
                       >
                         Phone Number<span className="base2">*</span>
                       </label>
-                      <input type="text" id="phoneNumber" name="phoneNumber" value={profile.phone} onChange={(e) => handleChange(e)} placeholder="Phone Number" />
+                      <input type="text" id="phoneNumber" name="phone" value={profile.phone} onChange={(e) => handleChange(e)} placeholder="Phone Number" />
                     </div>
                   </div>
 
@@ -91,7 +95,7 @@ const ProfileEditForm = () => {
                       >
                         Full Name <span className="base2">*</span>
                       </label>
-                      <input type="text" id="fullName" placeholder="Rolex" name="fullName"  onChange={(e) => handleChange(e)} />
+                      <input type="text" id="fullName" placeholder="Rolex" value={profile.fullName} name="fullName" onChange={(e) => handleChange(e)} />
                     </div>
                   </div>
                   <h4 className="white mb-0 pb-0 mt-60">Profile Details</h4>
