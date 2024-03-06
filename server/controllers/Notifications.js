@@ -26,7 +26,11 @@ export const createNotification = expressAsyncHandler(async (req, res, next) => 
 
 export const getNotifications = expressAsyncHandler(async (req, res, next) => {
 
+    const { page, pageSize } = req.query
+
     const notifications = await client.notifications.findMany({
+        take: parseInt(pageSize),
+        skip: (page - 1) * pageSize,
         orderBy: {
             date: 'desc'
         }

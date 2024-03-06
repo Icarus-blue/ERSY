@@ -17,6 +17,7 @@ import usersRouter from './routes/users.js';
 import NotificationRouter from './routes/notifications.js'
 import './utils/passport.js'
 import { createToken } from './utils/createToken.js';
+import _ from 'lodash';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -61,7 +62,7 @@ app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'em
 
 app.get('/callback', passport.authenticate('google', { failureRedirect: '/auth/google' }), async (req, res, next) => {
   const token = await createToken(req.user.id_);
-  res.redirect(`${process.env.FRONTEND_URL}?access_token=${token}&user=${JSON.stringify({ ...req.user })}`)
+  res.redirect(`${process.env.FRONTEND_URL}?access_token=${token}&user=${JSON.stringify(_.omit(req.user, 'pass_word'))}`)
 })
 
 

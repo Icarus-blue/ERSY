@@ -1,18 +1,30 @@
+'use client'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { fetchData } from '@/utils/fetchData'
 
 type Props = {}
 
 function NotificationDropdown({ }: Props) {
+
+    const [notifications, setNotifications] = useState([])
+
+    useEffect(() => {
+        const getData = async () => {
+            const data = await fetchData('/notifications', 1, 3)
+            data.status && setNotifications(data.notifications)
+        }
+
+        getData()
+    }, [])
     return (
         <div
             className="dropdown-menu dropdown-menu-end "
             data-popper-placement="bottom-end"
         >
             <ul className="list">
-{/* 
+
                 {
                     notifications?.map(notification => (
                         <li className="mb-16" key={notification.id_}>
@@ -20,7 +32,7 @@ function NotificationDropdown({ }: Props) {
                                 <Image
                                     width={200}
                                     height={200}
-                                    src="/img/mood/mood2.jpg"
+                                    src={notification?.cover || "/img/mood/mood2.jpg"}
                                     className="notification__thumb"
                                     alt="img"
                                 />
@@ -29,7 +41,7 @@ function NotificationDropdown({ }: Props) {
                                         {notification?.type_}
                                     </span>
                                     <span className="fs-14 message d-block fw-500 pra ">
-                                        Message alert!
+                                        {notification?.message_}
                                     </span>
                                     <span className="fs-10 fw-400 pra ">
                                         {new Date(notification?.date).toLocaleDateString()}
@@ -38,53 +50,17 @@ function NotificationDropdown({ }: Props) {
                             </Link>
                         </li>
                     ))
-                } */}
+                }
 
-                <li className="mb-16">
-                    <Link href="#0" className="link d-flex dropdown-item">
-                        <Image
-                            width={200}
-                            height={200}
-                            src="/img/mood/mood4.jpg"
-                            className="notification__thumb"
-                            alt="img"
-                        />
-                        <span className="notify__content">
-                            <span className="fs-16 d-block fw-600 white ">
-                                Mlan MCcoy
-                            </span>
-                            <span className="fs-14 message d-block fw-500 pra ">
-                                Message alert!
-                            </span>
-                            <span className="fs-10 fw-400 pra ">
-                                1 days ago
-                            </span>
-                        </span>
-                    </Link>
-                </li>
-                <li>
-                    <Link href="#0" className="link d-flex dropdown-item">
-                        <Image
-                            width={200}
-                            height={200}
-                            src="/img/mood/mood5.jpg"
-                            className="notification__thumb"
-                            alt="img"
-                        />
-                        <span className="notify__content">
-                            <span className="fs-16 d-block fw-600 white ">
-                                Neymer Jr
-                            </span>
-                            <span className="fs-14 message d-block fw-500 pra ">
-                                Message alert!
-                            </span>
-                            <span className="fs-10 fw-400 pra ">
-                                2 Month ago
-                            </span>
-                        </span>
+                <li className="" >
+                    <Link href="/notifications" className="link d-flex dropdown-item text-white">
+                        More
                     </Link>
                 </li>
             </ul>
+
+
+
         </div>
     )
 }
