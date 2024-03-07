@@ -13,7 +13,7 @@ const musicAllSong = () => {
   return (
     <>
       <BreadCrumSingle page="Music" />
-      <PopularAlbums sectionTitle="Top Songs" sliderData={topSongData} />
+      {/* <PopularAlbums sectionTitle="Top Songs" sliderData={topSongData} /> */}
     </>
   );
 };

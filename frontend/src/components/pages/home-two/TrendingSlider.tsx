@@ -5,13 +5,15 @@ import TrendingSliderCard from "../home/TrendingSliderCard";
 
 const TrendingSlider = () => {
   return (
-    <Trending
-      sectionTitle="Trending Songs"
-      sliderData={trendingsliderData}
-      classList="trending__abs pb-100 pt-0"
-    >
-      {(props) => <TrendingSliderCard {...props} />}
-    </Trending>
+    // <Trending
+    //   sectionTitle="Trending Songs"
+    //   sliderData={trendingsliderData}
+    //   classList="trending__abs pb-100 pt-0"
+    // >
+    //   {(props) => <TrendingSliderCard {...props} />}
+    // </Trending>
+
+    <p></p>
   );
 };
 
