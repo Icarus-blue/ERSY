@@ -66,8 +66,10 @@ app.get('/callback', passport.authenticate('google', { failureRedirect: '/auth/g
 })
 
 
+app.all('/health', (req, res) => {
+  res.sendStatus(200)
+})
 
-  
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
