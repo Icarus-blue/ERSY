@@ -1,4 +1,3 @@
-import { topSongData } from "@/../public/data/topSongData";
 import PopularAlbums from "@/components/pages/albums/PopularAlbums";
 import Trending from "@/components/pages/albums/Trending";
 import BreadCrumb from "@/components/shared/BreadCrum";
