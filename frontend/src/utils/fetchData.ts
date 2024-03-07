@@ -15,9 +15,6 @@ export const fetchData = async (
       ""
     );
     const data = await res.json();
-    //   if (data.status) setVideos((prev: any) => {
-    //     return [...prev, ...data.videos.filter((video, index, arr) => arr.indexOf(video) === index)]
-    //   })
 
     return data;
   } catch (error: any) {
