@@ -10,7 +10,7 @@ const clientSecret = process.env.GOOGLE_CLIENT_SECRET
 
 passport.use(new GoogleStrategy({
 
-    callbackURL: 'http://localhost:8000/callback',
+    callbackURL: `${process.env.BACKEND_URL}/callback`,
     clientID: clientId,
     clientSecret: clientSecret,
 },
