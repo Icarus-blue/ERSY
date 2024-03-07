@@ -1,5 +1,4 @@
 import api from "@/lib/api";
-import { toast } from "react-toastify";
 
 export const fetchData = async (
   route: string,
@@ -22,6 +21,6 @@ export const fetchData = async (
 
     return data;
   } catch (error: any) {
-    toast(error.message, { theme: "dark" });
+    console.log(error.message)
   }
 };

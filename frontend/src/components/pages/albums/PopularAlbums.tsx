@@ -1,11 +1,7 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
-//@ts-ignore
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
-import { StaticImageData } from "next/image";
-//@ts-ignore
 import { Navigation, Scrollbar } from "swiper";
-import MoodsCard from "../home/MoodsCard";
 import AlbumCard from "@/components/shared/AlbumCard";
 
 type Props = {
