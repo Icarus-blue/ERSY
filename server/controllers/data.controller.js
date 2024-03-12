@@ -103,3 +103,8 @@ export const getAlbums = expressAsyncHandler(async (req, res, next) => {
         albums: albums.filter((album, index, arr) => arr.indexOf(album) === index)
     })
 })
+
+
+export const getGallery = expressAsyncHandler(async (req, res, next) => {
+    
+})

@@ -15,7 +15,7 @@ const albums = async () => {
     <>
       <BreadCrumb page="Albums" />
       <Trending />
-      <PopularAlbums sectionTitle="Popular Albums" sliderData={data?.status && data?.albums} />
+      <PopularAlbums sectionTitle="Popular Albums" sliderData={(data?.status && data?.albums) || []} />
     </>
   );
 };
