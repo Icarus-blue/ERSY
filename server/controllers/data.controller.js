@@ -14,13 +14,17 @@ export const getMusicVideos = expressAsyncHandler(async (req, res, next) => {
     let where = {};
 
     if (query) {
-        where.title = {
-            contains: query
-        };
+        // where.title = {
+        //     contains: query
+        // };
+
+        where = {
+            ...where, title: { contains: query }
+        }
     }
 
     if (album_id) {
-        where.album_id = parseInt(album_id);
+        where = { ...where, album_id: parseInt(album_id) };
     }
 
 
@@ -110,7 +114,7 @@ export const getGallery = expressAsyncHandler(async (req, res, next) => {
     const gallery = await client.gallery.findMany({
         take: parseInt(pageSize),
         skip: (page - 1) * pageSize,
-        
+
     });
 
     await Prisma.$queryRwa
@@ -120,4 +124,9 @@ export const getGallery = expressAsyncHandler(async (req, res, next) => {
         gallery
     })
 
+})
+
+
+export const getPodcasts = expressAsyncHandler(async (req, res, next) => {
+    const podcasts = await client.po
 })
