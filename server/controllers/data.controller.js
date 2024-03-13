@@ -106,5 +106,17 @@ export const getAlbums = expressAsyncHandler(async (req, res, next) => {
 
 
 export const getGallery = expressAsyncHandler(async (req, res, next) => {
+    const { page, pageSize, query } = req.query
+    const gallery = await client.gallery.findMany({
+        take: parseInt(pageSize),
+        skip: (page - 1) * pageSize,
+        distinct: ['id_']
+    });
+
+
+    res.status(200).json({
+        status: true,
+        gallery
+    })
 
 })
