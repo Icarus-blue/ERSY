@@ -70,15 +70,18 @@ const MusicSection = () => {
 
   useEffect(() => {
     const run = async () => {
+      setIsLoading(true)
       const q = sq.get('query')
       if (q) setQuery(q)
       const data = await fetchData(`/data/videos`, 1, 12, q ? q : null)
       data.status && setVideos(data.videos)
+      setIsLoading(false)
     }
     run()
   }, [sq])
 
   const handleSearch = async (e: ChangeEvent<HTMLFormElement>) => {
+    setIsLoading(true)
     router.push(`?query=${query}`)
     e.preventDefault()
     const formData = new FormData(e.target)
@@ -87,6 +90,8 @@ const MusicSection = () => {
     try {
     } catch (error: any) {
       toast(error.message, { theme: 'dark' })
+    } finally {
+      setIsLoading(false)
     }
   }
 
