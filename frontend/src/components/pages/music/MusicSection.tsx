@@ -218,6 +218,7 @@ const MusicSection = () => {
         <Link href="#" onClick={async (e) => {
           e.preventDefault()
           const data = await fetchData('/data/videos', currentPage === 0 ? 3 : currentPage + 1, 12)
+          setVideos(prev=>([...prev, ...data.videos]))
         }} className="cmn__simple2" >
           {isLoading ? 'loading...' : 'Load More'}
         </Link>
