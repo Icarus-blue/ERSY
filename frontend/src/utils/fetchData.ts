@@ -10,7 +10,11 @@ export const fetchData = async (
 ) => {
   try {
     const res = await api.server.GET(
-      `${route}?page=${page}&pageSize=${pageSize}${query ? `&query=${query}` : ""}${album_id ? `&album_id=${album_id}` : ""}${album ? `&album_name=${album}` : ""}
+      `${route}?page=${page}&pageSize=${pageSize}${
+        query ? `&query=${query}` : ""
+      }${album_id ? `&album_id=${album_id}` : ""}${
+        album ? `&album_name=${album}` : ""
+      }
       `,
       ""
     );
@@ -18,6 +22,6 @@ export const fetchData = async (
 
     return data;
   } catch (error: any) {
-    console.log(error.message)
+    console.log(error.message);
   }
 };

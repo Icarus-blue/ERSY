@@ -9,6 +9,7 @@ import api from "@/lib/api";
 import { ChangeEvent, SetStateAction, useEffect, useState } from "react";
 import VideoCard from "../home/VideoCard";
 import { useRouter, useSearchParams } from "next/navigation";
+import { fetchData } from "@/utils/fetchData";
 
 const artists = [
   { label: "Tom Cook" },
@@ -32,38 +33,38 @@ const MusicSection = () => {
 
 
 
-  const getMusicVideos = async (page: number, pageSize: number, q?: string) => {
-    setIsLoading(true)
-    try {
-      // let res = null
-      // if (query && !q) {
-      //   res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}&query=${query}`, '')
-      // } else if (q) {
-      //   res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}&query=${q}`, '')
+  // const getMusicVideos = async (page: number, pageSize: number, q?: string) => {
+  //   setIsLoading(true)
+  //   try {
+  //     // let res = null
+  //     // if (query && !q) {
+  //     //   res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}&query=${query}`, '')
+  //     // } else if (q) {
+  //     //   res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}&query=${q}`, '')
 
-      // } else {
-      //   res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}`, '')
-      // }
+  //     // } else {
+  //     //   res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}`, '')
+  //     // }
 
-      const res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}`, '')
-      const data = await res.json();
-      if (data.status) {
-        setVideos((prev: any) => {
-          return [...prev, ...data.videos]
-        })
-        setCurrentPage(prev => prev + 1)
-        return data
-      }
+  //     const res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}`, '')
+  //     const data = await res.json();
+  //     if (data.status) {
+  //       setVideos((prev: any) => {
+  //         return [...prev, ...data.videos]
+  //       })
+  //       setCurrentPage(prev => prev + 1)
+  //       return data
+  //     }
 
-      toast(data.message, { theme: 'dark' })
-    } catch (error: any) {
-      // toast(error.message, { theme: 'dark' })
-      console.log('Error:', error.message)
-    } finally {
-      setIsLoading(false)
-    }
+  //     toast(data.message, { theme: 'dark' })
+  //   } catch (error: any) {
+  //     // toast(error.message, { theme: 'dark' })
+  //     console.log('Error:', error.message)
+  //   } finally {
+  //     setIsLoading(false)
+  //   }
 
-  }
+  // }
 
 
 
@@ -71,7 +72,8 @@ const MusicSection = () => {
     const run = async () => {
       const q = sq.get('query')
       if (q) setQuery(q)
-      await getMusicVideos(1, 12, q ? q : null)
+      const data = await fetchData(`/data/videos`, 1, 12, q ? q : null)
+      data.status && setVideos(data.videos)
     }
     run()
   }, [sq])
@@ -80,7 +82,7 @@ const MusicSection = () => {
     router.push(`?query=${query}`)
     e.preventDefault()
     const formData = new FormData(e.target)
-    const data = await getMusicVideos(1, 12, formData.get('query') as string)
+    const data = await fetchData(`/data/videos`, 1, 12, formData.get('query') as string)
     setVideos(data.videos)
     try {
     } catch (error: any) {
@@ -210,7 +212,7 @@ const MusicSection = () => {
       <div className="text-center mt-60 " >
         <Link href="#" onClick={async (e) => {
           e.preventDefault()
-          await getMusicVideos(currentPage === 0 ? 3 : currentPage + 1, 12)
+          const data = await fetchData('/data/videos', currentPage === 0 ? 3 : currentPage + 1, 12)
         }} className="cmn__simple2" >
           {isLoading ? 'loading...' : 'Load More'}
         </Link>
