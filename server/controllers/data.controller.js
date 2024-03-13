@@ -9,7 +9,7 @@ const generateWhere = (query, album_id) => {
 
 export const getMusicVideos = expressAsyncHandler(async (req, res, next) => {
 
-    const { page, pageSize, query, album_id, album_name } = req.query
+    const { page, pageSize, query, album_id } = req.query
 
     let where = {};
 
@@ -33,7 +33,7 @@ export const getMusicVideos = expressAsyncHandler(async (req, res, next) => {
 
     res.status(200).json({
         status: true,
-        videos: videos.filter((video, index, arr) => arr.indexOf(video) === index)
+        videos
     })
 })
 
@@ -106,5 +106,5 @@ export const getAlbums = expressAsyncHandler(async (req, res, next) => {
 
 
 export const getGallery = expressAsyncHandler(async (req, res, next) => {
-    
+
 })

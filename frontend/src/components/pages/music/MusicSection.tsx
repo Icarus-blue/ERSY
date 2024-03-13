@@ -26,7 +26,7 @@ const MusicSection = () => {
   const [videos, setVideos] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(0)
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState(null)
   const sq = useSearchParams();
   const router = useRouter()
 
@@ -71,7 +71,7 @@ const MusicSection = () => {
       await getMusicVideos(1, 12, q ? q : null)
     }
     run()
-  }, [])
+  }, [sq])
 
   const handleSearch = async (e: ChangeEvent<HTMLFormElement>) => {
     router.push(`?query=${query}`)
