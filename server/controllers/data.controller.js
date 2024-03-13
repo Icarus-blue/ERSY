@@ -13,7 +13,7 @@ export const getMusicVideos = expressAsyncHandler(async (req, res, next) => {
 
     let where = {};
 
-    if (query) {
+    if (query!==null&&query!=="") {
         // where.title = {
         //     contains: query
         // };
