@@ -23,7 +23,7 @@ export const getMusicVideos = expressAsyncHandler(async (req, res, next) => {
         }
     }
 
-    if (album_id) {
+    if (album_id !== null && album_id !== "") {
         where = { ...where, album_id: parseInt(album_id) };
     }
 
