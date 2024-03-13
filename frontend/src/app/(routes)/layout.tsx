@@ -59,7 +59,7 @@ export default function HomeLayout({
       {" "}
       {children}
       <AddProfileImage />
-      <PlayVideoModal/>
+      <PlayVideoModal />
       <ToastContainer />
     </React.Fragment>
   );

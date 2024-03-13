@@ -110,9 +110,10 @@ export const getGallery = expressAsyncHandler(async (req, res, next) => {
     const gallery = await client.gallery.findMany({
         take: parseInt(pageSize),
         skip: (page - 1) * pageSize,
-        distinct: ['id_']
+        
     });
 
+    await Prisma.$queryRwa
 
     res.status(200).json({
         status: true,

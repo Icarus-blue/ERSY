@@ -53,7 +53,7 @@ const Footer = () => {
                     </li>
                     <li className="mb-16">
                       <Link
-                        href="podcasts"
+                        href="gallery"
                         className="fs-16 fw-400 bodyfont pra"
                       >
                         Gallery

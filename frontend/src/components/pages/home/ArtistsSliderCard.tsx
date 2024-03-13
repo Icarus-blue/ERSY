@@ -14,7 +14,7 @@ const ArtistsSliderCard = ({ img_, name_, id_ }: Props) => {
 
       <div className="thumb ralt overhid transition">
         <Image
-          src={"/img/Eminem.jpg"}
+          src={`https://ersy.com/img/${img_}`}
           width={390}
           height={390}
           className="transition h-auto"

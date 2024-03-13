@@ -35,19 +35,21 @@ const MusicSection = () => {
   const getMusicVideos = async (page: number, pageSize: number, q?: string) => {
     setIsLoading(true)
     try {
-      let res = null
-      if (query) {
-        res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}&query=${query}`, '')
-      } else if (q) {
-        res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}&query=${q}`, '')
+      // let res = null
+      // if (query && !q) {
+      //   res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}&query=${query}`, '')
+      // } else if (q) {
+      //   res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}&query=${q}`, '')
 
-      } else {
-        res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}`, '')
-      }
+      // } else {
+      //   res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}`, '')
+      // }
+
+      const res = await api.server.GET(`/data/videos?page=${page}&pageSize=${pageSize}`, '')
       const data = await res.json();
       if (data.status) {
         setVideos((prev: any) => {
-          return [...prev, ...data.videos.filter((video, index, arr) => arr.indexOf(video) === index)]
+          return [...prev, ...data.videos]
         })
         setCurrentPage(prev => prev + 1)
         return data
@@ -55,7 +57,8 @@ const MusicSection = () => {
 
       toast(data.message, { theme: 'dark' })
     } catch (error: any) {
-      toast(error.message, { theme: 'dark' })
+      // toast(error.message, { theme: 'dark' })
+      console.log('Error:', error.message)
     } finally {
       setIsLoading(false)
     }

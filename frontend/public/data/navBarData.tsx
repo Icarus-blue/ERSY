@@ -56,7 +56,7 @@ export const sideBarData = [
   {
     id: uuidv4(),
     menuTitle: "Gallery",
-    path: "/albums",
+    path: "/gallery",
     icon: <IconAlbum />,
   },
   {
@@ -65,12 +65,12 @@ export const sideBarData = [
     path: "/product",
     icon: <IconList />,
   },
-  {
-    id: uuidv4(),
-    menuTitle: "Merch",
-    path: "/cart",
-    icon: <IconCalendarEvent />,
-  },
+  // {
+  //   id: uuidv4(),
+  //   menuTitle: "Merch",
+  //   path: "/cart",
+  //   icon: <IconCalendarEvent />,
+  // },
   {
     id: uuidv4(),
     menuTitle: "Recent",
