@@ -27,7 +27,12 @@ const server = http.createServer(app)
 const port = process.env.PORT || 8000
 
 
-app.use(cors())
+app.use(cors(
+  {
+    origin: '*',
+    credentials: false
+  }
+))
 app.use(logger('dev'));
 app.use(express.json({
   limit: '35mb'
