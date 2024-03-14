@@ -33,9 +33,9 @@ function VideoCard({ img_, title, video_id, uploader, views }: Props) {
                 dispatch(setVideoId(video_id))
             }}
             data-bs-target="#playVideoModal">
-            <div className="thumb mb-16 ralt transition overhid">
+            <div className="mb-16 ralt transition overhid">
                 <Image
-                    width={200}
+                    width={500}
                     // src={`https://ersy.com/img/gallery/thumbnail/${img_}`}
                     src={`https://img.youtube.com/vi/${video_id}/hqdefault.jpg`}
                     className="w-100  transition overhid h-auto"

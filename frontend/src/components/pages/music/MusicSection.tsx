@@ -75,7 +75,7 @@ const MusicSection = () => {
       if (q) setQuery(q)
       const data = await fetchData(`/data/videos`, 1, 12, q ? q : null)
       data.status && setVideos(data.videos)
-      setCurrentPage(prev => prev + 1)  
+      setCurrentPage(prev => prev + 1)
       setIsLoading(false)
     }
     run()
@@ -172,7 +172,7 @@ const MusicSection = () => {
               {videos.map(({ id, ...props }: any) => (
                 <div
                   key={id}
-                  className="col-xxl-4 col-xl-3 col-lg-3 col-md-3 col-md-4 col-sm-4"
+                  className="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6"
                 >
                   <VideoCard key={id} {...props} link="album-allsong" />
                 </div>
@@ -189,7 +189,7 @@ const MusicSection = () => {
               {videos.map(({ id, ...props }) => (
                 <div
                   key={props.id}
-                  className="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-md-4 col-sm-4"
+                  className="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6"
                 >
                   <VideoCard key={props.id} {...props} />
                 </div>
@@ -206,7 +206,7 @@ const MusicSection = () => {
               {videos.map(({ id, ...props }) => (
                 <div
                   key={id}
-                  className="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-md-4 col-sm-4"
+                  className="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6"
                 >
                   <VideoCard key={id} {...props} />
                 </div>
