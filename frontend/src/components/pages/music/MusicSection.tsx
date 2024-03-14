@@ -75,7 +75,7 @@ const MusicSection = () => {
       if (q) setQuery(q)
       const data = await fetchData(`/data/videos`, 1, 12, q ? q : null)
       data.status && setVideos(data.videos)
-      setCurrentPage(prev => prev + 1)
+      setCurrentPage(prev => prev + 1)  
       setIsLoading(false)
     }
     run()

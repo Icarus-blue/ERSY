@@ -12,7 +12,7 @@ export const getMusicVideos = expressAsyncHandler(async (req, res, next) => {
     const { page, pageSize, query, album_id } = req.query
     let videos = []
 
-    if (query || album_id) {
+    if (query !== null || album_id !== null) {
         videos = await client.videos.findMany({
             take: parseInt(pageSize),
             skip: (page - 1) * pageSize,
