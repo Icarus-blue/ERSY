@@ -10,30 +10,29 @@ const generateWhere = (query, album_id) => {
 export const getMusicVideos = expressAsyncHandler(async (req, res, next) => {
 
     const { page, pageSize, query, album_id } = req.query
+    let videos = []
 
-    let where = {};
-
-    if (query!==null&&query!=="") {
-        // where.title = {
-        //     contains: query
-        // };
-
-        where = {
-            ...where, title: { contains: query }
-        }
+    if (query || album_id) {
+        videos = await client.videos.findMany({
+            take: parseInt(pageSize),
+            skip: (page - 1) * pageSize,
+            distinct: ['title', 'album_id', 'id_'],
+            where: {
+                OR: [
+                    {
+                        title: { contains: query }
+                    },
+                    { album_id: parseInt(album_id) }
+                ]
+            }
+        });
+    } else {
+        videos = await client.videos.findMany({
+            take: parseInt(pageSize),
+            skip: (page - 1) * pageSize,
+            distinct: ['title', 'album_id', 'id_']
+        });
     }
-
-    if (album_id !== null && album_id !== "") {
-        where = { ...where, album_id: parseInt(album_id) };
-    }
-
-
-    const videos = await client.videos.findMany({
-        take: parseInt(pageSize),
-        skip: (page - 1) * pageSize,
-        distinct: ['title'],
-        where
-    });
 
     res.status(200).json({
         status: true,

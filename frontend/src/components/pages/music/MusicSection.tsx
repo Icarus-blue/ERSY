@@ -75,6 +75,7 @@ const MusicSection = () => {
       if (q) setQuery(q)
       const data = await fetchData(`/data/videos`, 1, 12, q ? q : null)
       data.status && setVideos(data.videos)
+      setCurrentPage(prev => prev + 1)
       setIsLoading(false)
     }
     run()
@@ -217,8 +218,11 @@ const MusicSection = () => {
       <div className="text-center mt-60 " >
         <Link href="#" onClick={async (e) => {
           e.preventDefault()
+          setIsLoading(true)
           const data = await fetchData('/data/videos', currentPage === 0 ? 3 : currentPage + 1, 12)
-          setVideos(prev=>([...prev, ...data.videos]))
+          setVideos(prev => ([...prev, ...data.videos]))
+          setCurrentPage(prev => prev + 1)
+          setIsLoading(false)
         }} className="cmn__simple2" >
           {isLoading ? 'loading...' : 'Load More'}
         </Link>

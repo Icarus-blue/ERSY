@@ -17,7 +17,8 @@ const albumAllSong = async ({
   searchParams?: { [key: string]: string | undefined };
 }) => {
 
-  const data = await fetchData('/data/videos', 1,20, null, parseInt(searchParams.album_id), searchParams.album)
+  const data = await fetchData('/data/videos', 1, 20, null, parseInt(searchParams.album_id), searchParams.album)
+  if(!data.status) console.log(data.message)
   return (
     <>
       <TopSinger />
@@ -26,7 +27,7 @@ const albumAllSong = async ({
         album_id={searchParams.album_id}
         sectionTitle="Mix All Songs"
 
-        artistSong={data?.videos} />
+        artistSong={data?.status ? data.videos : []} />
     </>
   );
 };

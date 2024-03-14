@@ -11,7 +11,7 @@ type Props = {
     title?: string;
     location?: string;
     listeners?: number;
-    img?: string;
+    img_?: string;
     id_?: string;
     artist_id?: string;
     artist_name?: string;
@@ -25,7 +25,7 @@ type Props = {
     views?: string;
 }
 
-function VideoCard({ img, title, video_id, uploader, views }: Props) {
+function VideoCard({ img_, title, video_id, uploader, views }: Props) {
     const dispatch = useDispatch()
     return (
         <div className="moods__item play-button-container card h-100 d-flex flex-column justify-content-between" data-bs-toggle='modal'
@@ -36,10 +36,11 @@ function VideoCard({ img, title, video_id, uploader, views }: Props) {
             <div className="thumb mb-16 ralt transition overhid">
                 <Image
                     width={200}
-                    height={400}
-                    src={`https://img.youtube.com/vi/${video_id}/${'sddefault.jpg' || 'hqdefault.jpg' || 'maxresdefault.jpg' || 'default.jpg'}`}
+                    src={`https://ersy.com/img/${img_}`}
+                    // src={`https://img.youtube.com/vi/${video_id}/${'sddefault.jpg' || 'hqdefault.jpg' || 'maxresdefault.jpg' || 'default.jpg'}`}
                     className="w-100  transition overhid h-auto"
                     alt="img"
+                    height={300}
                 />
                 <PlayButton
                     audioTrack={false}
