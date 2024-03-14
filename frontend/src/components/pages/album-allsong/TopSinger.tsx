@@ -32,7 +32,7 @@ const TopSinger = () => {
           {videos.slice(0, 6).map(({ ...props }) => (
             <div
               key={props.id_}
-              className="col-xxl-2 col-xl-2 col-lg-3 col-md-4 col-sm-4"
+              className="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6"
             >
               <VideoCard {...props} />
             </div>

@@ -30,7 +30,7 @@ const Trending = () => {
   const loadMore = async () => {
     try {
       setIsLoading(true)
-      const data = await fetchData('/data/albums', (albums.length <= 12) ? 2 : albums.length / 12, 12)
+      const data = await fetchData('/data/albums', (albums.length <= 12) ? albums.length+1 : albums.length / 12, 12)
       data.status ? setAlbums(prev => ([...prev, ...data.albums])) : null
     } catch (error) {
       console.log(error)
@@ -132,7 +132,7 @@ const Trending = () => {
               {albums.map(({ ...props }) => (
                 <div
                   key={props.id_}
-                  className="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-md-4 col-sm-4"
+                  className="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6"
                 >
                   <AlbumCard {...props} link="album-allsong" />
                 </div>
@@ -157,7 +157,7 @@ const Trending = () => {
               {albums.map(({ ...props }) => (
                 <div
                   key={props.id}
-                  className="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-md-4 col-sm-4"
+                  className="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6"
                 >
                   <AlbumCard key={props.id} {...props} link="album-allsong" />
                 </div>
@@ -182,7 +182,7 @@ const Trending = () => {
               {albums.map(({ ...props }) => (
                 <div
                   key={props.id}
-                  className="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-md-4 col-sm-4"
+                  className="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6"
                 >
                   <AlbumCard key={props.id} {...props} link="album-allsong" />
                 </div>
@@ -207,7 +207,7 @@ const Trending = () => {
               {albums.map(({ ...props }) => (
                 <div
                   key={props.id}
-                  className="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-md-4 col-sm-4"
+                  className="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6"
                 >
                   <AlbumCard key={props.id} {...props} link="album-allsong" />
                 </div>
@@ -232,7 +232,7 @@ const Trending = () => {
               {albums.map(({ ...props }) => (
                 <div
                   key={props.id}
-                  className="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-md-4 col-sm-4"
+                  className="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6"
                 >
                   <AlbumCard key={props.id} {...props} link="album-allsong" />
                 </div>
