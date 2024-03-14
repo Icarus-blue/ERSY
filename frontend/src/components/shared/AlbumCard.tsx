@@ -7,16 +7,17 @@ type Props = {
     name_: string;
     artist_name: string;
     id_: number;
+    img_?: string;
 }
 
-function AlbumCard({ name_, artist_name, id_ }: Props) {
+function AlbumCard({ name_, artist_name, id_, img_ }: Props) {
     return (
         <div className="moods__item play-button-container">
-            <div className="thumb mb-16 ralt transition overhid">
+                <div className="thumb mb-16 ralt transition overhid">
                 <Image
                     width={200}
                     height={0}
-                    src={"/"}
+                    src={`https://ersy.com/img/${img_}`}
                     className="w-100 round50 transition overhid h-auto"
                     alt="img"
                 />

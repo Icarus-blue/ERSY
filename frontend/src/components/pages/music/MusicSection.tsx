@@ -168,11 +168,11 @@ const MusicSection = () => {
             role="tabpanel"
             aria-labelledby="home-tab"
           >
-            <div className="row g-4">
+            <div className="row g-2">
               {videos.map(({ id, ...props }: any) => (
                 <div
                   key={id}
-                  className="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-md-4 col-sm-4"
+                  className="col-xxl-4 col-xl-3 col-lg-3 col-md-3 col-md-4 col-sm-4"
                 >
                   <VideoCard key={id} {...props} link="album-allsong" />
                 </div>
@@ -185,7 +185,7 @@ const MusicSection = () => {
             role="tabpanel"
             aria-labelledby="profile-tab"
           >
-            <div className="row g-4">
+            <div className="row g-2">
               {videos.map(({ id, ...props }) => (
                 <div
                   key={props.id}
@@ -202,7 +202,7 @@ const MusicSection = () => {
             role="tabpanel"
             aria-labelledby="contact-tab"
           >
-            <div className="row g-4">
+            <div className="row g-2">
               {videos.map(({ id, ...props }) => (
                 <div
                   key={id}

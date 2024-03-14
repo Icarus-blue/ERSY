@@ -46,7 +46,9 @@ function Gallery({ }: Props) {
                         </div>
                     ) :
                         gallery.map((item, index) => (
-                            <PictureCard {...item} key={index} />
+                            <div className='col-xxl-4 col-xl-3 col-lg-3 col-md-3 col-md-4 col-sm-4' key={index} >
+                                <PictureCard {...item} />
+                            </div>
                         ))
                 }
             </div>

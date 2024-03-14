@@ -61,7 +61,7 @@ const PopularAlbums = ({ sectionTitle, sliderData }: Props) => {
           className="swiper products__slider"
         >
           <div className=" ">
-            {sliderData.map(({ ...props }) => (
+            {sliderData.map((props) => (
               <SwiperSlide key={props.id_}>
                 {/* <div className="swiper-slide">
                   <MoodsCard {...props} link="music-details" />

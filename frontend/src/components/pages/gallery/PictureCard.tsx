@@ -12,7 +12,7 @@ type Props = {
 
 function PictureCard({ url_, date_taken }: Props) {
     return (
-        <div className="swiper-slide trending__item round16 p-8 col-2">
+        <div className="swiper-slide trending__item round16 p-8">
 
             <div className="thumb ralt overhid transition">
                 <Image
