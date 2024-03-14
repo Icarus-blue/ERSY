@@ -1,6 +1,7 @@
 'use client'
 import PictureCard from '@/components/pages/gallery/PictureCard'
 import Search from '@/components/pages/home/Search'
+import Loader from '@/components/shared/Loader'
 import api from '@/lib/api'
 import { Metadata } from 'next'
 import React, { useEffect, useState } from 'react'
@@ -36,16 +37,19 @@ function Gallery({ }: Props) {
                 <span>All the world&apos;s celebrities short are collected here.</span>
                 <Search />
             </div>
+            <div className='d-flex row w100'>
+                {
 
-            {
-                !gallery.length && 'loading'
-            }
-
-            {
-                gallery.map((item, index) => (
-                    <PictureCard {...item} key={index} />
-                ))
-            }
+                    !gallery.length ? (
+                        <div className="w100 d-flex justify-content-center">
+                            <Loader />
+                        </div>
+                    ) :
+                        gallery.map((item, index) => (
+                            <PictureCard {...item} key={index} />
+                        ))
+                }
+            </div>
         </div>
     )
 }

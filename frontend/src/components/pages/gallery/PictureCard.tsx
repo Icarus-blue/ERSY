@@ -4,30 +4,32 @@ import Link from 'next/link'
 import { IconArrowNarrowRight } from '@tabler/icons-react'
 
 type Props = {
-    name_: string
+    name_: string;
+    source: string;
+    url_: string;
+    date_taken: Date
 }
 
-function PictureCard({ name_ }: Props) {
+function PictureCard({ url_, date_taken }: Props) {
     return (
-        <div className="thumb ralt overhid transition">
-            <Image
-                src={"/img/Eminem.jpg"}
-                width={390}
-                height={390}
-                className="transition h-auto"
-                alt="img"
-            />
-            <div className="artist__popup d-flex align-items-center justify-content-between">
-                <div className="content">
-                    <h5 className="mb-1">
-                        <Link href={`/artist-allsong?artist=${name_}`} className="white">
-                            {name_}
-                        </Link>
-                    </h5>
+        <div className="swiper-slide trending__item round16 p-8 col-2">
+
+            <div className="thumb ralt overhid transition">
+                <Image
+                    src={`https://ersy.com${url_}`}
+                    width={390}
+                    height={390}
+                    className="transition h-auto"
+                    alt="img"
+                />
+                <div className="artist__popup d-flex align-items-center justify-content-between">
+                    <div className="content">
+                        <h5 className="mb-1">
+                            {new Date(date_taken).toLocaleDateString()}
+                        </h5>
+                    </div>
+
                 </div>
-                <Link href={`/artist-allsong?artist=${name_}`} className="cmn__arrow">
-                    <IconArrowNarrowRight className="arrowrotate" />
-                </Link>
             </div>
         </div>
     )

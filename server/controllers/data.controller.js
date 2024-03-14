@@ -116,7 +116,7 @@ export const getGallery = expressAsyncHandler(async (req, res, next) => {
 
     });
 
-    await Prisma.$queryRwa
+    // await Prisma.$queryRwa
 
     res.status(200).json({
         status: true,
