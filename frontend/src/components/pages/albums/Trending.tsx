@@ -4,17 +4,40 @@ import MoodsCard from "../home/MoodsCard";
 import { useEffect, useState } from "react";
 import { fetchData } from "@/utils/fetchData";
 import AlbumCard from "@/components/shared/AlbumCard";
+import { toast } from "react-toastify";
 
 const Trending = () => {
   const [albums, setAlbums] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     const getData = async () => {
-      const data = await fetchData('/data/albums', 1, 12)
-      if (data.status) setAlbums(data.albums)
+      try {
+        const data = await fetchData('/data/albums', 1, 12)
+        if (data.status) return setAlbums(data.albums)
+        toast(data.message)
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setIsLoading(false)
+
+      }
+
     }
 
     getData()
   }, [])
+
+  const loadMore = async () => {
+    try {
+      setIsLoading(true)
+      const data = await fetchData('/data/albums', (albums.length <= 12) ? 2 : albums.length / 12, 12)
+      data.status ? setAlbums(prev => ([...prev, ...data.albums])) : null
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
   return (
     // <!--genres section-->
     <section className="trending__section hotsong__section pr-24 pl-24 pb-100">
@@ -117,11 +140,10 @@ const Trending = () => {
               <div className="text-center mt-40">
                 <button className="cmn__simple2"
 
-                  onClick={async () => {
-                    const data = await fetchData('/data/albums', (albums.length <= 12) ? 2 : albums.length / 12, 12)
-                    data.status ? setAlbums(prev => ([...prev, ...data.albums])) : null
-                  }}
-                >Load More</button>
+                  onClick={loadMore}
+                >
+                  {isLoading ? 'loading' : 'Load More'}
+                </button>
               </div>
             </div>
           </div>
@@ -142,11 +164,11 @@ const Trending = () => {
               ))}
               <div className="text-center mt-40">
                 <button className="cmn__simple2"
-                  onClick={async () => {
-                    const data = await fetchData('/data/albums', (albums.length <= 12) ? 2 : albums.length / 12, 12)
-                    data.status ? setAlbums(prev => ([...prev, ...data.albums])) : null
-                  }}
-                >Load More</button>
+
+                  onClick={loadMore}
+                >
+                  {isLoading ? 'loading' : 'Load More'}
+                </button>
               </div>
             </div>
           </div>
@@ -167,11 +189,11 @@ const Trending = () => {
               ))}
               <div className="text-center mt-40">
                 <button className="cmn__simple2"
-                  onClick={async () => {
-                    const data = await fetchData('/data/albums', (albums.length <= 12) ? 2 : albums.length / 12, 12)
-                    data.status ? setAlbums(prev => ([...prev, ...data.albums])) : null
-                  }}
-                >Load More</button>
+
+                  onClick={loadMore}
+                >
+                  {isLoading ? 'loading' : 'Load More'}
+                </button>
               </div>
             </div>
           </div>
@@ -192,11 +214,11 @@ const Trending = () => {
               ))}
               <div className="text-center mt-40">
                 <button className="cmn__simple2"
-                  onClick={async () => {
-                    const data = await fetchData('/data/albums', (albums.length <= 12) ? 2 : albums.length / 12, 12)
-                    data.status ? setAlbums(prev => ([...prev, ...data.albums])) : null
-                  }}
-                >Load More</button>
+
+                  onClick={loadMore}
+                >
+                  {isLoading ? 'loading' : 'Load More'}
+                </button>
               </div>
             </div>
           </div>
@@ -217,11 +239,11 @@ const Trending = () => {
               ))}
               <div className="text-center mt-40">
                 <button className="cmn__simple2"
-                  onClick={async () => {
-                    const data = await fetchData('/data/albums', (albums.length <= 12) ? 2 : albums.length / 12, 12)
-                    data.status ? setAlbums(prev => ([...prev, ...data.albums])) : null
-                  }}
-                >Load More</button>
+
+                  onClick={loadMore}
+                >
+                  {isLoading ? 'loading' : 'Load More'}
+                </button>
               </div>
             </div>
           </div>
