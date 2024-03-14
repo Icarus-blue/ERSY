@@ -6,7 +6,8 @@ export const fetchData = async (
   pageSize: number,
   query?: string,
   album_id?: number,
-  album?: string
+  album?: string,
+  category?: string,
 ) => {
   try {
     const res = await api.server.GET(
@@ -14,7 +15,7 @@ export const fetchData = async (
         query ? `&query=${query}` : ""
       }${album_id ? `&album_id=${album_id}` : ""}${
         album ? `&album_name=${album}` : ""
-      }
+      }${category ? `&category=${category}` : ""}
       `,
       ""
     );

@@ -12,7 +12,7 @@ export const getMusicVideos = expressAsyncHandler(async (req, res, next) => {
     const { page, pageSize, query, album_id } = req.query
     let videos = []
 
-    if (query !== null || album_id !== null) {
+    if (query !== null || album_id !== null || category) {
         videos = await client.videos.findMany({
             take: parseInt(pageSize),
             skip: (page - 1) * pageSize,
@@ -22,7 +22,10 @@ export const getMusicVideos = expressAsyncHandler(async (req, res, next) => {
                     {
                         title: { contains: query }
                     },
-                    { album_id: parseInt(album_id) }
+                    { album_id: parseInt(album_id) },
+                    {
+                        views: { gte: '1000000000000'}
+                    }
                 ]
             }
         });
