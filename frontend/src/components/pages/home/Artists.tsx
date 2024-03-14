@@ -13,8 +13,10 @@ import ArtistsSliderCard from "./ArtistsSliderCard";
 import { toast } from "react-toastify";
 import api from "@/lib/api";
 import { useEffect, useState } from "react";
+import Loader from "@/components/shared/Loader";
 const Artists = () => {
   const [artists, setArtists] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   const getArtists = async () => {
     try {
@@ -23,6 +25,8 @@ const Artists = () => {
       if (data.status) setArtists(prev => ([...prev, ...data.artists]))
     } catch (error: any) {
       toast(error.message, { theme: 'dark' })
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -43,7 +47,9 @@ const Artists = () => {
             <IconArrowNarrowRight />
           </Link>
         </div>
-        <Swiper
+        {
+          !isLoading ? (
+             <Swiper
           modules={[Navigation, Scrollbar]}
           speed={200}
           spaceBetween={12}
@@ -101,6 +107,12 @@ const Artists = () => {
             <div className="swiper-scrollbar"></div>
           </div>
         </Swiper>
+          ) : (
+              <div className="w100 d-flex justify-content-center">
+                <Loader/>
+              </div>
+          )
+       }
       </div>
     </section>
   );

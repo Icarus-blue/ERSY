@@ -11,6 +11,7 @@ import { ReactNode } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 //@ts-ignore
 import { Navigation, Scrollbar } from "swiper";
+import Loader from "@/components/shared/Loader";
 
 type Props = {
   classList?: string;
@@ -41,8 +42,9 @@ type Props = {
     views?: string;
   }[];
   href: string;
+  isLoading: boolean;
 };
-const Trending = ({ classList, sectionTitle, sliderData, children, href }: Props) => {
+const Trending = ({ classList, sectionTitle, sliderData, children, href, isLoading }: Props) => {
   return (
     // <!--Trending section-->
     <section
@@ -59,62 +61,72 @@ const Trending = ({ classList, sectionTitle, sliderData, children, href }: Props
             <IconArrowNarrowRight />
           </Link>
         </div>
-        <Swiper
-          modules={[Navigation, Scrollbar]}
-          speed={200}
-          spaceBetween={12}
-          loop={true}
-          breakpoints={{
-            320: {
-              slidesPerView: 1,
-              scrollbar: {
-                dragSize: 40,
-              },
-            },
-            575: {
-              slidesPerView: 2,
-            },
-            900: {
-              slidesPerView: 3,
-            },
-            1199: {
-              slidesPerView: 3,
-            },
-            1600: {
-              slidesPerView: 4,
-              scrollbar: {
-                dragSize: 240,
-              },
-            },
-          }}
-          scrollbar={{
-            el: ".swiper-scrollbar",
-            draggable: true,
-          }}
-          navigation={{
-            nextEl: ".cmn-button-next2",
-            prevEl: ".cmn-button-prev2",
-          }}
-          className="swiper trending__slider"
-        >
-          <div className="">
-            {sliderData.map(({ id, ...props }) => (
-              <SwiperSlide key={id}>{children({ ...props })}</SwiperSlide>
-            ))}
-          </div>
-          <div className="d-flex gap-4 align-items-center">
-            <div className="gap-1 d-flex">
-              <div className="cmn-button-prev2">
-                <IconChevronLeft />
+        
+        {
+          !isLoading ? (
+            <Swiper
+              modules={[Navigation, Scrollbar]}
+              speed={200}
+              spaceBetween={12}
+              loop={true}
+              breakpoints={{
+                320: {
+                  slidesPerView: 1,
+                  scrollbar: {
+                    dragSize: 40,
+                  },
+                },
+                575: {
+                  slidesPerView: 2,
+                },
+                900: {
+                  slidesPerView: 3,
+                },
+                1199: {
+                  slidesPerView: 3,
+                },
+                1600: {
+                  slidesPerView: 4,
+                  scrollbar: {
+                    dragSize: 240,
+                  },
+                },
+              }}
+              scrollbar={{
+                el: ".swiper-scrollbar",
+                draggable: true,
+              }}
+              navigation={{
+                nextEl: ".cmn-button-next2",
+                prevEl: ".cmn-button-prev2",
+              }}
+              className="swiper trending__slider"
+            >
+              <div className="">
+                {sliderData.map(({ id, ...props }) => (
+                  <SwiperSlide key={id}>{children({ ...props })}</SwiperSlide>
+                ))}
               </div>
-              <div className="cmn-pagination"></div>
-              <div className="cmn-button-next2">
-                <IconChevronRight />
+              <div className="d-flex gap-4 align-items-center">
+                <div className="gap-1 d-flex">
+                  <div className="cmn-button-prev2">
+                    <IconChevronLeft />
+                  </div>
+                  <div className="cmn-pagination"></div>
+                  <div className="cmn-button-next2">
+                    <IconChevronRight />
+                  </div>
+                </div>
+                <div className="swiper-scrollbar"></div>
               </div>
+            </Swiper>
+          ) : (
+              <div className="w100 d-flex justify-content-center">
+                  <Loader />
             </div>
-            <div className="swiper-scrollbar"></div>
-          </div>
-        </Swiper>
+            
+          )
+        }
       </div>
     </section>
   );
