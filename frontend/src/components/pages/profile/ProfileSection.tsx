@@ -52,7 +52,8 @@ const ProfileSection = () => {
                 <img
                   width={''}
                   height={''}
-                  src={user?.img_ || ''}
+                  src={`/img22/img/users/${user?.img_}`}
+
                   alt=""
                   className="rounded"
                 />
@@ -244,7 +245,7 @@ const ProfileSection = () => {
                       <Image
                         width={160}
                         height={160}
-                        src={user?.img_ || ''}
+                        src={`/img22/img/users/${user?.img_}`}
                         alt="img"
                       />
                     </div>

@@ -179,17 +179,17 @@ const Navbar = () => {
                   !authenticated ? (
                     <div className="">
                       <li className="auth-btns">
-                      <Link href="signin" className="cmn--btn cmn--btnone">
-                        <span>Sign in</span>
-                      </Link>
-                      <Link href="signup" className="cmn--btn cmn--btntwo">
-                        <span>Signup</span>
-                      </Link>
-                    </li>
+                        <Link href="signin" className="cmn--btn cmn--btnone">
+                          <span>Sign in</span>
+                        </Link>
+                        <Link href="signup" className="cmn--btn cmn--btntwo">
+                          <span>Signup</span>
+                        </Link>
+                      </li>
                     </div>
                   ) : null
                 }
-                
+
               </ul>
               {
                 authenticated && (
@@ -208,7 +208,7 @@ const Navbar = () => {
                           aria-expanded="true"
                         >
                           <img
-                            src={user?.img_ || ''}
+                            src={`/img22/img/users/${user?.img_}`}
                             alt="image"
                             className="img-fluid profile__img rounded-circle objec-fit-cover h-5"
                             width={'100%'}
@@ -311,7 +311,7 @@ const Navbar = () => {
                                 <Link
                                   href="#"
                                   onClick={() => {
-                                      dispatch(logout(""))
+                                    dispatch(logout(""))
                                   }}
                                   className="link d-flex align-items-center gap-2 dropdown-item"
                                 >
@@ -336,7 +336,7 @@ const Navbar = () => {
                         >
                           <IconBell />
                         </Link>
-                        <NotificationDropdown/>
+                        <NotificationDropdown />
                       </div>
                     </div>
                   </div>
