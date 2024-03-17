@@ -17,7 +17,7 @@ function AlbumCard({ name_, artist_name, id_, img_ }: Props) {
                 <Image
                     width={200}
                     height={0}
-                    src={`https://ersy.com/img/${img_}`}
+                    src={`/img22/img/album/${img_}`}
                     className="w-100 round50 transition overhid h-auto"
                     alt="img"
                 />

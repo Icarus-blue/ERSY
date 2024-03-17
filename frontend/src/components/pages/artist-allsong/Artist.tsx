@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 const Artist = () => {
 
   const [artist, setArtist] = useState(null)
-  const [artistImage, setArtistImage] = useState('')
   const sq = useSearchParams();
 
   const getArtist = async () => {
@@ -28,21 +27,10 @@ const Artist = () => {
     }
   }
 
-  const getArtistImage = async (name: string) => {
-    try {
-      const res = await fetch(`https://api.unsplash.com/search/photos?page=3&per_page=1&query=${name}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`)
-      const data = await res.json()
-      console.log('image data', data)
-      setArtistImage(data.results[0].urls.raw)
-    } catch (error) {
-      console.log('error')
-    }
-  }
 
   useEffect(() => {
     const getData = async () => {
       getArtist()
-      getArtistImage(sq.get('artist'))
     }
     getData()
   }, [])
@@ -53,10 +41,10 @@ const Artist = () => {
     <section className="genres__section custom__space pr-24 pl-24 pb-60">
       <div className="container-fluid">
         <div className="artist__allhead d-flex">
-          <img
+          <Image
             width={390}
             height={390}
-            src={`${artistImage}?client_id=bLxn0sAwYEUfRYnrzUr97iCJ0A-Pg2ENeBguYX8Z8H8`}
+            src={`/img22/img/profile/${artist.img_}`}
             alt=""
             className="flex-shrink-0 h-auto"
           />

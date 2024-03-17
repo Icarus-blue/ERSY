@@ -16,7 +16,7 @@ function PictureCard({ url_, date_taken }: Props) {
 
             <div className="thumb ralt overhid transition">
                 <Image
-                    src={`https://ersy.com${url_}`}
+                    src={`/img22${url_}`}
                     width={390}
                     height={390}
                     className="transition h-auto"
