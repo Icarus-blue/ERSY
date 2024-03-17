@@ -52,8 +52,7 @@ const ProfileSection = () => {
                 <img
                   width={''}
                   height={''}
-                  src={`/img22/img/users/${user?.img_}`}
-
+                  src={user ? (user?.img_?.split('.')[1] ? `/img22/img/users/${user?.img_}` : `${user?.img_}`) : ''}
                   alt=""
                   className="rounded"
                 />
@@ -245,7 +244,7 @@ const ProfileSection = () => {
                       <Image
                         width={160}
                         height={160}
-                        src={`/img22/img/users/${user?.img_}`}
+                        src={user ? (user?.img_?.split('.')[1] ? `/img22/img/users/${user?.img_}` : `${user?.img_}`) : ''}
                         alt="img"
                       />
                     </div>

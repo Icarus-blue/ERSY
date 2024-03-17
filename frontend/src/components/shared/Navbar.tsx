@@ -208,7 +208,7 @@ const Navbar = () => {
                           aria-expanded="true"
                         >
                           <img
-                            src={`/img22/img/users/${user?.img_}`}
+                            src={user ? (user?.img_?.split('.')[1] ? `/img22/img/users/${user?.img_}` : `${user?.img_}`) : ''}
                             alt="image"
                             className="img-fluid profile__img rounded-circle objec-fit-cover h-5"
                             width={'100%'}
