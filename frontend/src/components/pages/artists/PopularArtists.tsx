@@ -2,7 +2,7 @@
 import { artistCardData } from "@/../public/data/artistsCardData";
 import LoadMore from "@/components/shared/LoadMore";
 import SelectBox from "@/components/shared/SelectBox";
-import { IconSearch } from "@tabler/icons-react";
+import { IconFilter, IconSearch } from "@tabler/icons-react";
 import ArtistsSliderCard from "../home/ArtistsSliderCard";
 import { fetchData } from "@/utils/fetchData";
 import { ChangeEvent, useEffect, useState } from "react";
@@ -23,6 +23,22 @@ const genres = [
   { label: "Reggae" },
   { label: "Jazz" },
 ];
+
+const views = [
+  { label: "Views" },
+  { label: "Most Item First" },
+  { label: "RIP" },
+  { label: "A-Z" },
+  { label: "Z-A" },
+  { label: "youngest To Oldest" },
+  { label: "Oldest To Youngest" },
+  { label: "Recently Updated" },
+  { label: "Birthday" },
+  { label: "Monthly Listeners" },
+  { label: "Social Followers" },
+  { label: " Most Photos" },
+  { label: "Following" }
+]
 const PopularArtists = () => {
 
   const [artists, setArtists] = useState([])
@@ -78,6 +94,16 @@ const PopularArtists = () => {
       console.log(error.message)
     }
   }
+  const getArtistsBySortingMode = async (vl: { label: string }, page?: number) => {
+    try {
+      const res = await api.server.POST(`/data/artists/sortmode`, { filter: vl?.label, page: page }, '')
+      const data = await res.json()
+      if (data.status) setArtists(data.artists)
+      console.log('data', data.artists);
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 
   const loadMore = async () => {
     if (genreValue !== "All") {
@@ -102,7 +128,16 @@ const PopularArtists = () => {
             </button>
           </form>
           {/* <SelectBox options={artists} /> */}
-          <SelectBox setGenresValue={setGenresValue} onChange={(vl: { label: string }) => getArtistByGenres(vl)} options={genres} />
+          <SelectBox onChange={(vl: { label: string }) => getArtistByGenres(vl)} options={genres} />
+        </div>
+        <SelectBox onChange={(vl: { label: string }) => getArtistsBySortingMode(vl)} options={views} />
+        <div>
+          <button className="cmn--btn">
+            <span>
+              <IconFilter />
+              Filter
+            </span>
+          </button>
         </div>
         {/* <ul className="nav nav-tabs" id="myTab" role="tablist">
           <li className="nav-item" role="presentation">

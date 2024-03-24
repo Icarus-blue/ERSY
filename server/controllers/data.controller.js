@@ -296,6 +296,8 @@ export const getArtistesBySortingMode = expressAsyncHandler(async (req, res, nex
 
     const { filter, page = 1, pageSize = 10 } = req.body;
 
+    console.log('filter', filter)
+
     if (!filter) {
         return res.status(400).json({ message: 'fiter mode is required' });
     }
@@ -307,7 +309,7 @@ export const getArtistesBySortingMode = expressAsyncHandler(async (req, res, nex
     };
 
     let artistes = null;
-    switch (filter) {
+    switch (filter.toLowerCase()) {
         case 'views':
             artistes = await client.artistes.findMany({
                 take: parseInt(pageSize),
@@ -394,7 +396,7 @@ export const getArtistesBySortingMode = expressAsyncHandler(async (req, res, nex
             break
     }
 
-    if (!artistes) return res.status(400).json({ message: 'Artists not found' });
+    if (!artistes) return res.status(200).json({ status: true, artists: [] });
 
     res.status(200).json({
         status: true,

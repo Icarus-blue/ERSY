@@ -2,19 +2,17 @@
 import { Listbox, Transition } from "@headlessui/react";
 import { IconChevronDown } from "@tabler/icons-react";
 // import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import { Fragment, useEffect, useState } from "react";
+import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 
 type Props = {
   options: { label: string }[];
-  onChange: (vl: { label: string }) => Promise<void>;
-  setGenresValue?: (vl: string) => void;
+  onChange?: (vl: { label: string }) => Promise<void>;
 };
 
-export default function SelectBox({ options, setGenresValue, onChange }: Props) {
+export default function SelectBox({ options, onChange }: Props) {
   const [selected, setSelected] = useState(options[0]);
 
   useEffect(() => {
-    setGenresValue(selected.label)
     onChange(selected)
   }, [selected])
 
