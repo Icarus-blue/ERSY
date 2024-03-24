@@ -204,12 +204,10 @@ export const uploadProfilePicture = AsyncHandler(async (req, res, next) => {
 
     const { userId } = req.params
     const { imageBase64 } = req.body
-
     if (!imageBase64) return next({ message: "Picture is needed", status: 400 })
     if (!userId) return next({ message: "User id is required", status: 400 })
 
     let user = await findUserById(userId)
-
     if (!user) return next({ message: "User could not be found", status: 404 })
 
     // await User.findOneAndUpdate(({ id_: user.id_ }), {

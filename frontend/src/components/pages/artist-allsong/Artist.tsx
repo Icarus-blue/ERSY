@@ -14,7 +14,7 @@ const Artist = () => {
 
   const getArtist = async () => {
     try {
-      const res = await api.server.GET(`/data/artists/${sq.get('artist')}`, '');
+      const res = await api.server.GET(`/data/artists/${sq.get('artist_id')}`, '');
       const data = await res.json()
       console.log("data", data)
       if (data.status) {

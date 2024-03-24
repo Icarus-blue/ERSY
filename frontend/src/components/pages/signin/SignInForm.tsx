@@ -37,7 +37,7 @@ const SignInForm = () => {
       console.log(data)
       dispatch(login({ ...data.user, last_name: data.user.fullName?.split(' ')[0], first_name: data.user.fullName?.split(' ')[1], access_token: data.access_token }))
       Cookie.set('access_token', data.access_token)
-      router.push('/home')
+      window.location.href = "/home"
     } catch (error: any) {
       toast(error.message, {
         autoClose: 3000,

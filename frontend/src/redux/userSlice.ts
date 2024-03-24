@@ -13,7 +13,6 @@ type User = {
     createdAt: Date;
     id_: string;
     access_token: string;
-
   } | null;
 };
 
@@ -31,9 +30,8 @@ const userSlice = createSlice({
       state.user = { ...action.payload };
 
       if (action.payload.access_token) {
-        console.log('access otken', action.payload.access_token)
         localStorage.setItem("access_token", state.user?.access_token || "");
-        Cookies.set("access_token", action.payload.access_token);
+        Cookies.set("access_token", action.payload.access_token);        
       }
     },
 

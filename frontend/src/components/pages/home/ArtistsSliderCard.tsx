@@ -23,12 +23,12 @@ const ArtistsSliderCard = ({ img_, name_, id_ }: Props) => {
         <div className="artist__popup d-flex align-items-center justify-content-between">
           <div className="content">
             <h5 className="mb-1">
-              <Link href={`/artist-allsong?artist=${name_}`} className="white">
+              <Link href={`/artist-allsong?artist=${name_}&artist_id=${id_}`} className="white">
                 {name_}
               </Link>
             </h5>
           </div>
-          <Link href={`/artist-allsong?artist=${name_}`} className="cmn__arrow">
+          <Link href={`/artist-allsong?artist=${name_}&artist_id=${id_}`} className="cmn__arrow">
             <IconArrowNarrowRight className="arrowrotate" />
           </Link>
         </div>

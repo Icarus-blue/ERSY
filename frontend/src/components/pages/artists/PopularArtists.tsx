@@ -8,6 +8,7 @@ import { fetchData } from "@/utils/fetchData";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
+import api from "@/lib/api";
 const artists = [
   { label: "Tom Cook" },
   { label: "Tanya Fox" },
@@ -15,15 +16,19 @@ const artists = [
 ];
 
 const genres = [
-  { label: "All Artists" },
-  { label: "New Artists" },
-  { label: "Expert Artists" },
+  { label: "All" },
+  { label: "Hip Hop" },
+  { label: "Rock" },
+  { label: "Pop" },
+  { label: "Reggae" },
+  { label: "Jazz" },
 ];
 const PopularArtists = () => {
 
   const [artists, setArtists] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(0)
+  const [genreValue, setGenresValue] = useState('All')
   const [query, setQuery] = useState('')
   const sq = useSearchParams();
   const router = useRouter()
@@ -56,13 +61,32 @@ const PopularArtists = () => {
       const q = sq.get('query')
       if (q) {
         setQuery(q)
-      const data = await fetchData('/data/artists', 1, 1, q)
+        const data = await fetchData('/data/artists', 1, 1, q)
         data.status && setArtists(data.artists)
       }
     }
     run()
   }, [])
 
+  const getArtistByGenres = async (vl: { label: string }, page?: number) => {
+    try {
+      const res = await api.server.POST(`/data/artists/genre`, { genre: vl?.label, page: page }, '')
+      const data = await res.json()
+      if (data.status) setArtists(data.artists)
+      console.log('data', data.artists);
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  const loadMore = async () => {
+    if (genreValue !== "All") {
+      getArtistByGenres({ label: genreValue }, 2)
+    } else {
+      const data = await fetchData('/data/artists', (artists.length <= 12) ? 2 : artists.length / 12, 12)
+      data.status ? setArtists(prev => ([...prev, ...data.artists])) : null
+    }
+  }
   return (
     // <!--genres section-->
     <section className="trending__section pr-24 pl-24 pb-100">
@@ -78,9 +102,9 @@ const PopularArtists = () => {
             </button>
           </form>
           {/* <SelectBox options={artists} /> */}
-          {/* <SelectBox options={genres} /> */}
+          <SelectBox setGenresValue={setGenresValue} onChange={(vl: { label: string }) => getArtistByGenres(vl)} options={genres} />
         </div>
-        <ul className="nav nav-tabs" id="myTab" role="tablist">
+        {/* <ul className="nav nav-tabs" id="myTab" role="tablist">
           <li className="nav-item" role="presentation">
             <button
               className="nav-link active"
@@ -126,7 +150,7 @@ const PopularArtists = () => {
               Newest
             </button>
           </li>
-        </ul>
+        </ul> */}
       </div>
       <div className="container-fluid">
         <div className="tab-content" id="myTabContent">
@@ -147,10 +171,7 @@ const PopularArtists = () => {
               ))}
               <div className="text-center mt-40">
                 <button className="cmn__simple2"
-                  onClick={async () => {
-                    const data = await fetchData('/data/artists', (artists.length <= 12) ? 2 : artists.length / 12, 12)
-                    data.status ? setArtists(prev => ([...prev, ...data.artists])) : null
-                  }}
+                  onClick={loadMore}
                 >
                   Load More</button>
               </div>
@@ -173,10 +194,7 @@ const PopularArtists = () => {
               ))}
               <div className="text-center mt-40">
                 <button className="cmn__simple2"
-                  onClick={async () => {
-                    const data = await fetchData('/data/artists', (artists.length <= 12) ? 2 : artists.length / 12, 12)
-                    data.status ? setArtists(prev => ([...prev, ...data.artists])) : null
-                  }}
+                  onClick={loadMore}
                 >Load More</button>
               </div>
             </div>
@@ -198,10 +216,7 @@ const PopularArtists = () => {
               ))}
               <div className="text-center mt-40">
                 <button className="cmn__simple2"
-                  onClick={async () => {
-                    const data = await fetchData('/data/artists', (artists.length <= 12) ? 2 : artists.length / 12, 12)
-                    data.status ? setArtists(prev => ([...prev, ...data.artists])) : null
-                  }}
+                  onClick={loadMore}
                 >Load More</button>
               </div>
             </div>
